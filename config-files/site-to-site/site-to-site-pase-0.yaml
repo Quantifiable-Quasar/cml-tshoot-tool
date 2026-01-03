@@ -44,9 +44,9 @@ nodes:
         content: |-
           Building configuration...
 
-          Current configuration : 5469 bytes
+          Current configuration : 4358 bytes
           !
-          ! Last configuration change at 00:57:05 UTC Sat Jan 3 2026
+          ! Last configuration change at 02:28:23 UTC Sat Jan 3 2026
           !
           version 15.9
           service timestamps debug datetime msec
@@ -111,9 +111,10 @@ nodes:
            ipv6 address ::8:8:8:8/128
           !
           interface GigabitEthernet0/0
-           no ip address
+           ip address 198.51.100.1 255.255.255.252
            duplex auto
            speed auto
+           ipv6 address 2001:DB8:198::1/64
           !
           interface GigabitEthernet0/1
            description to HQ_Hub-1
@@ -169,54 +170,23 @@ nodes:
           !
           router bgp 1
            bgp log-neighbor-changes
-           neighbor 2001:DB8:192:A1::1 remote-as 65000
-           neighbor 2001:DB8:192:A2::9 remote-as 65000
-           neighbor 2001:DB8:203:A::11 remote-as 65100
-           neighbor 2001:DB8:203:A::21 remote-as 65200
-           neighbor 2001:DB8:203:A::31 remote-as 65300
-           neighbor 2001:DB8:203:A::32 remote-as 65300
-           neighbor 2001:DB8:203:A::41 remote-as 65400
-           neighbor 192.0.2.1 remote-as 65000
-           neighbor 192.0.2.9 remote-as 65000
-           neighbor 203.0.113.11 remote-as 65100
-           neighbor 203.0.113.21 remote-as 65200
-           neighbor 203.0.113.31 remote-as 65300
-           neighbor 203.0.113.32 remote-as 65300
-           neighbor 203.0.113.41 remote-as 65400
+           neighbor 2001:DB8:198::2 remote-as 2
+           neighbor 198.51.100.2 remote-as 2
            !
            address-family ipv4
             network 8.8.8.8 mask 255.255.255.255
             network 192.0.2.0 mask 255.255.255.252
             network 192.0.2.8 mask 255.255.255.252
             network 203.0.113.0 mask 255.255.255.128
-            no neighbor 2001:DB8:192:A1::1 activate
-            no neighbor 2001:DB8:192:A2::9 activate
-            no neighbor 2001:DB8:203:A::11 activate
-            no neighbor 2001:DB8:203:A::21 activate
-            no neighbor 2001:DB8:203:A::31 activate
-            no neighbor 2001:DB8:203:A::32 activate
-            no neighbor 2001:DB8:203:A::41 activate
-            neighbor 192.0.2.1 activate
-            neighbor 192.0.2.9 activate
-            neighbor 203.0.113.11 activate
-            neighbor 203.0.113.21 activate
-            neighbor 203.0.113.31 activate
-            neighbor 203.0.113.32 activate
-            neighbor 203.0.113.41 activate
+            no neighbor 2001:DB8:198::2 activate
+            neighbor 198.51.100.2 activate
            exit-address-family
            !
            address-family ipv6
             network ::8:8:8:8/128
             network 2001:DB8:192:A1::/64
             network 2001:DB8:192:A2::/64
-            network 2001:DB8:203:A::/64
-            neighbor 2001:DB8:192:A1::1 activate
-            neighbor 2001:DB8:192:A2::9 activate
-            neighbor 2001:DB8:203:A::11 activate
-            neighbor 2001:DB8:203:A::21 activate
-            neighbor 2001:DB8:203:A::31 activate
-            neighbor 2001:DB8:203:A::32 activate
-            neighbor 2001:DB8:203:A::41 activate
+            neighbor 2001:DB8:198::2 activate
            exit-address-family
           !
           ip forward-protocol nd
@@ -225,6 +195,7 @@ nodes:
           no ip http server
           no ip http secure-server
           !
+          ipv6 route 2001:DB8:192:1682::/64 2001:DB8:203:A::21
           ipv6 ioam timestamp
           !
           !
@@ -334,9 +305,9 @@ nodes:
         content: |-
           Building configuration...
 
-          Current configuration : 4947 bytes
+          Current configuration : 4394 bytes
           !
-          ! Last configuration change at 00:58:10 UTC Sat Jan 3 2026
+          ! Last configuration change at 02:29:41 UTC Sat Jan 3 2026
           !
           version 15.9
           service timestamps debug datetime msec
@@ -402,11 +373,11 @@ nodes:
            ipv6 address ::9:9:9:9/128
           !
           interface GigabitEthernet0/0
-           no ip address
-           shutdown
+           ip address 198.51.100.2 255.255.255.252
            duplex auto
            speed auto
            media-type rj45
+           ipv6 address 2001:DB8:198::2/64
           !
           interface GigabitEthernet0/1
            description to HQ_Hub-1
@@ -462,28 +433,16 @@ nodes:
           !
           router bgp 2
            bgp log-neighbor-changes
-           neighbor 2001:DB8:192:B1::5 remote-as 65000
-           neighbor 2001:DB8:192:B2::13 remote-as 65000
-           neighbor 2001:DB8:203:B::211 remote-as 65100
-           neighbor 2001:DB8:203:B::241 remote-as 65400
-           neighbor 192.0.2.5 remote-as 65000
-           neighbor 192.0.2.13 remote-as 65000
-           neighbor 203.0.113.211 remote-as 65100
-           neighbor 203.0.113.241 remote-as 65400
+           neighbor 2001:DB8:198::1 remote-as 1
+           neighbor 198.51.100.1 remote-as 1
            !
            address-family ipv4
             network 9.9.9.9 mask 255.255.255.255
             network 192.0.2.4 mask 255.255.255.252
             network 192.0.2.12 mask 255.255.255.252
             network 203.0.113.128 mask 255.255.255.128
-            neighbor 2001:DB8:192:B1::5 activate
-            neighbor 2001:DB8:192:B2::13 activate
-            neighbor 2001:DB8:203:B::211 activate
-            neighbor 2001:DB8:203:B::241 activate
-            neighbor 192.0.2.5 activate
-            neighbor 192.0.2.13 activate
-            neighbor 203.0.113.211 activate
-            neighbor 203.0.113.241 activate
+            no neighbor 2001:DB8:198::1 activate
+            neighbor 198.51.100.1 activate
            exit-address-family
            !
            address-family ipv6
@@ -491,10 +450,7 @@ nodes:
             network 2001:DB8:192:B1::/64
             network 2001:DB8:192:B2::/64
             network 2001:DB8:203:B::/64
-            neighbor 2001:DB8:192:B1::5 activate
-            neighbor 2001:DB8:192:B2::13 activate
-            neighbor 2001:DB8:203:B::211 activate
-            neighbor 2001:DB8:203:B::241 activate
+            neighbor 2001:DB8:198::1 activate
            exit-address-family
           !
           ip forward-protocol nd
@@ -609,8 +565,8 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: ios_config.txt
-        content: "Building configuration...\n\n\nCurrent configuration : 7884 bytes\n\
-          !\n! Last configuration change at 00:56:10 UTC Sat Jan 3 2026\n!\nversion\
+        content: "Building configuration...\n\n\nCurrent configuration : 7275 bytes\n\
+          !\n! Last configuration change at 02:27:06 UTC Sat Jan 3 2026\n!\nversion\
           \ 15.9\nservice timestamps debug datetime msec\nservice timestamps log datetime\
           \ msec\nno service password-encryption\n!\nhostname HQ_Hub-1\n!\nboot-start-marker\n\
           boot-end-marker\n!\n!\nvrf definition DATA\n rd 10:10\n !\n address-family\
@@ -677,21 +633,12 @@ nodes:
           \ 21 ipv6 2001:DB8:1922:1680::254/64\n standby 21 priority 90\n standby\
           \ 21 preempt\n ipv6 address 2001:DB8:1922:1680::129/64\n!\ninterface GigabitEthernet0/3\n\
           \ no ip address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n\
-          !\nrouter bgp 65000\n bgp log-neighbor-changes\n !\n address-family ipv4\
-          \ vrf INET_A\n  network 192.0.2.0 mask 255.255.255.252\n  neighbor 192.0.2.2\
-          \ remote-as 1\n  neighbor 192.0.2.2 activate\n exit-address-family\n !\n\
-          \ address-family ipv6 vrf INET_A\n  network 2001:DB8:192:A1::/64\n  neighbor\
-          \ 2001:DB8:192:A1::2 remote-as 1\n  neighbor 2001:DB8:192:A1::2 activate\n\
-          \ exit-address-family\n !\n address-family ipv4 vrf INET_B\n  network 192.0.2.4\
-          \ mask 255.255.255.252\n  neighbor 192.0.2.6 remote-as 2\n  neighbor 192.0.2.6\
-          \ activate\n exit-address-family\n !\n address-family ipv6 vrf INET_B\n\
-          \  network 2001:DB8:192:B1::/64\n  neighbor 2001:DB8:192:B1::6 remote-as\
-          \ 2\n  neighbor 2001:DB8:192:B1::6 activate\n exit-address-family\n!\nip\
-          \ forward-protocol nd\n!\n!\nip http server\nno ip http secure-server\n\
+          !\nip forward-protocol nd\n!\n!\nip http server\nno ip http secure-server\n\
           ip route vrf INET_A 0.0.0.0 0.0.0.0 192.0.2.2\nip route vrf INET_B 0.0.0.0\
-          \ 0.0.0.0 192.0.2.6\n!\nipv6 route vrf INET_B ::/0 2001:DB8:192:B::6\nipv6\
-          \ route vrf INET_A ::/0 2001:DB8:192:A::2\nipv6 ioam timestamp\n!\n!\n!\n\
-          control-plane\n!\nbanner exec ^C\n**************************************************************************\n\
+          \ 0.0.0.0 192.0.2.6\n!\nipv6 route vrf INET_B ::/0 2001:DB8:192:B1::6\n\
+          ipv6 route vrf INET_A ::/0 2001:DB8:192:A1::2\nipv6 route vrf INET_B ::/0\
+          \ 2001:DB8:192:B::6\nipv6 route vrf INET_A ::/0 2001:DB8:192:A::2\nipv6\
+          \ ioam timestamp\n!\n!\n!\ncontrol-plane\n!\nbanner exec ^C\n**************************************************************************\n\
           * IOSv is strictly limited to use for evaluation, demonstration and IOS\
           \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
           \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
@@ -758,8 +705,8 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: ios_config.txt
-        content: "Building configuration...\n\n\nCurrent configuration : 9817 bytes\n\
-          !\n! Last configuration change at 00:56:23 UTC Sat Jan 3 2026\n!\nversion\
+        content: "Building configuration...\n\n\nCurrent configuration : 9072 bytes\n\
+          !\n! Last configuration change at 02:27:22 UTC Sat Jan 3 2026\n!\nversion\
           \ 15.9\nservice timestamps debug datetime msec\nservice timestamps log datetime\
           \ msec\nno service password-encryption\n!\nhostname HQ_Hub-2\n!\nboot-start-marker\n\
           boot-end-marker\n!\n!\nvrf definition DATA\n rd 10:10\n !\n address-family\
@@ -773,99 +720,90 @@ nodes:
           \ 60\nno mmi auto-configure\nno mmi pvc\nmmi snmp-timeout 180\n!\n!\n!\n\
           !\n!\n!\n!\n!\n!\n!\n!\nip domain name marmur.lcl\nip cef\nipv6 unicast-routing\n\
           ipv6 cef\n!\nmultilink bundle-name authenticated\n!\n!\n!\ncrypto pki trustpoint\
-          \ VPN_TP\n enrollment url http://192.0.2.1:80\n serial-number none\n ip-address\
-          \ none\n subject-name CN=HQ_Hub-2.marmur.lcl\n vrf INET_A\n revocation-check\
-          \ none\n rsakeypair VPN_KEY\n!\n!\n!\ncrypto pki certificate map VPN_MAP\
-          \ 1\n issuer-name co cn = hq_hub-1\n!\ncrypto pki certificate chain VPN_TP\n\
-          \ certificate 02\n  3082032A 30820212 A0030201 02020102 300D0609 2A864886\
-          \ F70D0101 05050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172\
-          \ 6D75722E 6C636C30\n  1E170D32 36303130 33303033 3333395A 170D3237 30313033\
-          \ 30303333 33395A30\n  42311C30 1A060355 04030C13 48515F48 75622D32 2E6D6172\
-          \ 6D75722E 6C636C31\n  22302006 092A8648 86F70D01 09021613 48515F48 75622D32\
-          \ 2E6D6172 6D75722E\n  6C636C30 82012230 0D06092A 864886F7 0D010101 05000382\
-          \ 010F0030 82010A02\n  82010100 D32F7C2C 126B19A1 E2823B24 00ED655E 3D537310\
-          \ 3A083055 3B3C8DF2\n  605DDD8A 0AD1E5BB 4711DB51 D18DC3F9 2B6877D3 32BBFC7F\
-          \ 15B688C5 32473CE3\n  F1630B53 28C10E0C B5ED556A 61505F17 4FD5D141 199FFE8B\
-          \ 0063D538 E94612E0\n  D9BDF0AA 6396CAE9 8BF3CF03 8FAD6342 6B761D2A E315DB45\
-          \ 9787B6BF 6E5BF8D2\n  CDE7E10F 5B5D22DF 27240265 0D0AE3B3 EACB301B 0C66C3F2\
-          \ 7F786352 8BC91FBF\n  453E6119 4B514A8A B1CFC475 E7B225A2 61BF3E47 6B82DCCC\
-          \ 8D83CFD4 4C0D2FD5\n  F658556B 5B79FDAA 77C4FE50 AF01B70E C2799DCF CA6284E9\
-          \ 1DC0F2C5 28411BB8\n  8A83F003 24611793 827CDCA2 AB89D958 1427FDEA C5FA5243\
-          \ CAA96B5D 72BE2D7D\n  62C3953D 02030100 01A34F30 4D300B06 03551D0F 04040302\
-          \ 05A0301F 0603551D\n  23041830 16801431 47B214FA CAFDDCB2 74E4DB50 7F1F5407\
-          \ 7943A730 1D060355\n  1D0E0416 0414EC16 C4557981 DD909AAB 0F869570 6C7BB0EE\
-          \ 181F300D 06092A86\n  4886F70D 01010505 00038201 010018BA 9AA4448C AC525786\
-          \ 72140954 99A3A8E2\n  CA3D8A04 8BADEBDA 9BB13D53 A83214E9 8AF0B778 028AFA5B\
-          \ CE3D9D0D C817D14E\n  0DF4D269 6D70AE5A 51BBE1F6 AD89FCB9 08DC1AFD 1A1F8F15\
-          \ 262FB162 B90F97F6\n  5602AAE1 97BABD7C 55547D8E 367D717F 28D923BF 123762C6\
-          \ F70496A7 EFA4E7FF\n  1FC67154 9F009A54 AACD92FA DC3A775A 72924C9D 5711F622\
-          \ 01A7444D 7F99EB2D\n  A4A5E70E 34D39EA9 4703B641 9D3851E1 9C78B638 18881C7C\
-          \ 6EAA1460 0A2411BF\n  B93791EE 24F49863 194235D1 1068912F 1D95966E 654729E9\
-          \ 89AFD35C 2BA79C8C\n  0B3F5A3A 1F39A1E5 A8DF3214 E45A8BEB FE01790D F30E59CE\
-          \ EBEA4292 1F25426D\n  76342483 3335CAA7 2BB420D0 A13B\n  \tquit\n certificate\
-          \ ca 01\n  3082031A 30820202 A0030201 02020101 300D0609 2A864886 F70D0101\
-          \ 04050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E\
-          \ 6C636C30\n  1E170D32 36303130 33303032 3631395A 170D3239 30313032 30303236\
-          \ 31395A30\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E\
-          \ 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02\
-          \ 82010100\n  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A\
-          \ BAA82A56\n  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A\
-          \ 81B39614\n  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531\
-          \ 28ED279D\n  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C\
-          \ AD2AA290\n  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C\
-          \ 061DEE68\n  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5\
-          \ 0722FB1F\n  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9\
-          \ D332D0E9\n  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B\
-          \ FE6C1795\n  02030100 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E\
-          \ 0603551D\n  0F0101FF 04040302 0186301F 0603551D 23041830 16801431 47B214FA\
-          \ CAFDDCB2\n  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA\
-          \ FDDCB274\n  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201\
-          \ 01004779\n  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2\
-          \ 56DA71C8\n  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6\
-          \ 140B312B\n  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1\
-          \ 2A9BF4CD\n  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730\
-          \ EDBD9C83\n  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA\
-          \ FC87B8E0\n  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4\
-          \ 2407D011\n  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18\
-          \ 69AF3FB2\n  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA\
-          \ A7C5\n  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
-          !\n!\ninterface Loopback0\n description Underlay loopback\n ip address 1.0.0.2\
-          \ 255.255.255.255\n ipv6 address ::1:0:0:2/128\n!\ninterface Loopback10\n\
-          \ description loopback for data vrf\n vrf forwarding DATA\n ip address 1.0.10.2\
-          \ 255.255.255.255\n ipv6 address ::1:0:10:2/128\n!\ninterface Loopback20\n\
-          \ description loopback for mgmt vrf\n vrf forwarding MGMT\n ip address 1.0.20.2\
-          \ 255.255.255.255\n ipv6 address ::1:0:20:2/128\n!\ninterface GigabitEthernet0/0\n\
-          \ description To ISP A\n vrf forwarding INET_A\n ip address 192.0.2.9 255.255.255.252\n\
-          \ duplex auto\n speed auto\n media-type rj45\n ipv6 address 2001:DB8:192:A2::9/64\n\
-          !\ninterface GigabitEthernet0/1\n no ip address\n duplex auto\n speed auto\n\
-          \ media-type rj45\n!\ninterface GigabitEthernet0/1.10\n description To VLAN\
-          \ 10\n encapsulation dot1Q 10\n vrf forwarding DATA\n ip address 192.168.0.2\
-          \ 255.255.255.128\n standby version 2\n standby 10 ip 192.168.0.126\n standby\
-          \ 10 priority 90\n standby 10 preempt\n standby 11 ipv6 2001:DB8:1921:1680::126/64\n\
-          \ standby 11 priority 90\n standby 11 preempt\n ipv6 address 2001:DB8:1921:1680::2/64\n\
-          !\ninterface GigabitEthernet0/1.20\n description To VLAN 20\n encapsulation\
-          \ dot1Q 20\n vrf forwarding MGMT\n ip address 192.168.0.130 255.255.255.128\n\
-          \ standby version 2\n standby 20 ip 192.168.0.254\n standby 20 preempt\n\
-          \ standby 21 ipv6 2001:DB8:1922:1680::254/64\n standby 21 preempt\n ipv6\
-          \ address 2001:DB8:1922:1680::130/64\n!\ninterface GigabitEthernet0/2\n\
-          \ description To ISP B\n vrf forwarding INET_B\n ip address 192.0.2.13 255.255.255.252\n\
+          \ VPN_TP\n enrollment url http://192.0.2.1:80\n vrf INET_A\n revocation-check\
+          \ none\n rsakeypair VPN_KEY\n auto-enroll 80\n!\n!\n!\ncrypto pki certificate\
+          \ map VPN_MAP 1\n issuer-name co cn = hq_hub-1\n!\ncrypto pki certificate\
+          \ chain VPN_TP\n certificate 08\n  3082030C 308201F4 A0030201 02020108 300D0609\
+          \ 2A864886 F70D0101 05050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31\
+          \ 2E6D6172 6D75722E 6C636C30\n  1E170D32 36303130 33303231 3930365A 170D3237\
+          \ 30313033 30323139 30365A30\n  24312230 2006092A 864886F7 0D010902 16134851\
+          \ 5F487562 2D322E6D 61726D75\n  722E6C63 6C308201 22300D06 092A8648 86F70D01\
+          \ 01010500 0382010F 00308201\n  0A028201 0100D32F 7C2C126B 19A1E282 3B2400ED\
+          \ 655E3D53 73103A08 30553B3C\n  8DF2605D DD8A0AD1 E5BB4711 DB51D18D C3F92B68\
+          \ 77D332BB FC7F15B6 88C53247\n  3CE3F163 0B5328C1 0E0CB5ED 556A6150 5F174FD5\
+          \ D141199F FE8B0063 D538E946\n  12E0D9BD F0AA6396 CAE98BF3 CF038FAD 63426B76\
+          \ 1D2AE315 DB459787 B6BF6E5B\n  F8D2CDE7 E10F5B5D 22DF2724 02650D0A E3B3EACB\
+          \ 301B0C66 C3F27F78 63528BC9\n  1FBF453E 61194B51 4A8AB1CF C475E7B2 25A261BF\
+          \ 3E476B82 DCCC8D83 CFD44C0D\n  2FD5F658 556B5B79 FDAA77C4 FE50AF01 B70EC279\
+          \ 9DCFCA62 84E91DC0 F2C52841\n  1BB88A83 F0032461 1793827C DCA2AB89 D9581427\
+          \ FDEAC5FA 5243CAA9 6B5D72BE\n  2D7D62C3 953D0203 010001A3 4F304D30 0B060355\
+          \ 1D0F0404 030205A0 301F0603\n  551D2304 18301680 143147B2 14FACAFD DCB274E4\
+          \ DB507F1F 54077943 A7301D06\n  03551D0E 04160414 EC16C455 7981DD90 9AAB0F86\
+          \ 95706C7B B0EE181F 300D0609\n  2A864886 F70D0101 05050003 82010100 0EDB5EC4\
+          \ CE8AE191 42C21A90 200FB4FA\n  9BAD4D4E 74943A36 AD49A9F9 F9855000 B03F9F96\
+          \ E0D9F526 90C3204C 707606AC\n  9D4229A5 6CAC091B 158DB13F 74B0666A FEDA6B9F\
+          \ 52D89070 DD39BD4A 56929F4B\n  96974CE9 AD98BA7A AFF87F8B B90A0C70 CE620EF5\
+          \ 62D8A0A3 D3D877E7 6FF5D475\n  A029DAA6 69083DF8 E1B8E433 0BE24A5B 37E5F72C\
+          \ D33353FF FB32C98F 6170A7E5\n  9C618828 587B8AF5 0E53C228 6BBC5493 10B5C179\
+          \ 329328E9 4315F9D4 78C26502\n  3E8AD5AC 07D3E7FA 50F09B91 4F2C92AB 13F17ECE\
+          \ FA6A3464 DB9ADA07 FFA08A23\n  F5B77725 DFB8FC57 3DE04657 4AC470AC AA1FE81A\
+          \ 35CE402D 0297BA7F 762A646C\n  01EA3166 B56760AA C568473F F94DFDF4\n  \t\
+          quit\n certificate ca 01\n  3082031A 30820202 A0030201 02020101 300D0609\
+          \ 2A864886 F70D0101 04050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31\
+          \ 2E6D6172 6D75722E 6C636C30\n  1E170D32 36303130 33303032 3631395A 170D3239\
+          \ 30313032 30303236 31395A30\n  1E311C30 1A060355 04030C13 48515F48 75622D31\
+          \ 2E6D6172 6D75722E 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382\
+          \ 010F0030 82010A02 82010100\n  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA\
+          \ 525F8D36 C58DA42A BAA82A56\n  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2\
+          \ 313E892E FA31A20A 81B39614\n  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA\
+          \ 0A15D2CB DDA67531 28ED279D\n  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2\
+          \ 7BEC671F 8E57FE6C AD2AA290\n  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871\
+          \ D943E980 341AEA7C 061DEE68\n  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C\
+          \ 7AC0F334 5B3EC7E5 0722FB1F\n  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA\
+          \ 7748BD7B C07F8CE9 D332D0E9\n  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E\
+          \ C663814F 28F9F17B FE6C1795\n  02030100 01A36330 61300F06 03551D13 0101FF04\
+          \ 05300301 01FF300E 0603551D\n  0F0101FF 04040302 0186301F 0603551D 23041830\
+          \ 16801431 47B214FA CAFDDCB2\n  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416\
+          \ 04143147 B214FACA FDDCB274\n  E4DB507F 1F540779 43A7300D 06092A86 4886F70D\
+          \ 01010405 00038201 01004779\n  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD\
+          \ 6774767A 736E1DE2 56DA71C8\n  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB\
+          \ E788E258 0CAB48A6 140B312B\n  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2\
+          \ EE892671 87EF20B1 2A9BF4CD\n  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731\
+          \ 63A72F8B 74959730 EDBD9C83\n  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D\
+          \ 6E82A2F2 9456DAEA FC87B8E0\n  0CE20246 B6DC3983 4101E70E B8B21506 46D87352\
+          \ 052F48E7 90B12BA4 2407D011\n  1B4F9A70 45047459 8BD70744 77720D42 B07011B1\
+          \ BA5B8D8E BFF99E18 69AF3FB2\n  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838\
+          \ AB536465 365D49FA A7C5\n  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\n!\n!\n!\n!\ninterface Loopback0\n description Underlay loopback\n\
+          \ ip address 1.0.0.2 255.255.255.255\n ipv6 address ::1:0:0:2/128\n!\ninterface\
+          \ Loopback10\n description loopback for data vrf\n vrf forwarding DATA\n\
+          \ ip address 1.0.10.2 255.255.255.255\n ipv6 address ::1:0:10:2/128\n!\n\
+          interface Loopback20\n description loopback for mgmt vrf\n vrf forwarding\
+          \ MGMT\n ip address 1.0.20.2 255.255.255.255\n ipv6 address ::1:0:20:2/128\n\
+          !\ninterface GigabitEthernet0/0\n description To ISP A\n vrf forwarding\
+          \ INET_A\n ip address 192.0.2.9 255.255.255.252\n duplex auto\n speed auto\n\
+          \ media-type rj45\n ipv6 address 2001:DB8:192:A2::9/64\n!\ninterface GigabitEthernet0/1\n\
+          \ no ip address\n duplex auto\n speed auto\n media-type rj45\n!\ninterface\
+          \ GigabitEthernet0/1.10\n description To VLAN 10\n encapsulation dot1Q 10\n\
+          \ vrf forwarding DATA\n ip address 192.168.0.2 255.255.255.128\n standby\
+          \ version 2\n standby 10 ip 192.168.0.126\n standby 10 priority 90\n standby\
+          \ 10 preempt\n standby 11 ipv6 2001:DB8:1921:1680::126/64\n standby 11 priority\
+          \ 90\n standby 11 preempt\n ipv6 address 2001:DB8:1921:1680::2/64\n!\ninterface\
+          \ GigabitEthernet0/1.20\n description To VLAN 20\n encapsulation dot1Q 20\n\
+          \ vrf forwarding MGMT\n ip address 192.168.0.130 255.255.255.128\n standby\
+          \ version 2\n standby 20 ip 192.168.0.254\n standby 20 preempt\n standby\
+          \ 21 ipv6 2001:DB8:1922:1680::254/64\n standby 21 preempt\n ipv6 address\
+          \ 2001:DB8:1922:1680::130/64\n!\ninterface GigabitEthernet0/2\n description\
+          \ To ISP B\n vrf forwarding INET_B\n ip address 192.0.2.13 255.255.255.252\n\
           \ duplex auto\n speed auto\n media-type rj45\n ipv6 address 2001:DB8:192:B2::13/64\n\
           !\ninterface GigabitEthernet0/3\n no ip address\n shutdown\n duplex auto\n\
-          \ speed auto\n media-type rj45\n!\nrouter bgp 65000\n bgp log-neighbor-changes\n\
-          \ !\n address-family ipv4 vrf INET_A\n  network 192.0.2.8 mask 255.255.255.252\n\
-          \  neighbor 192.0.2.10 remote-as 1\n  neighbor 192.0.2.10 activate\n exit-address-family\n\
-          \ !\n address-family ipv6 vrf INET_A\n  network 2001:DB8:192:A2::/64\n \
-          \ neighbor 2001:DB8:192:A2::10 remote-as 1\n  neighbor 2001:DB8:192:A2::10\
-          \ activate\n exit-address-family\n !\n address-family ipv4 vrf INET_B\n\
-          \  network 192.0.2.12 mask 255.255.255.252\n  neighbor 192.0.2.14 remote-as\
-          \ 2\n  neighbor 192.0.2.14 activate\n exit-address-family\n !\n address-family\
-          \ ipv6 vrf INET_B\n  network 2001:DB8:192:B2::/64\n  neighbor 2001:DB8:192:B2::14\
-          \ remote-as 2\n  neighbor 2001:DB8:192:B2::14 activate\n exit-address-family\n\
-          !\nip forward-protocol nd\n!\n!\nno ip http server\nno ip http secure-server\n\
-          ip route vrf INET_A 0.0.0.0 0.0.0.0 192.0.2.10\nip route vrf INET_B 0.0.0.0\
-          \ 0.0.0.0 192.0.2.14\n!\nipv6 route vrf INET_A ::/0 2001:DB8:192:A::10\n\
-          ipv6 route vrf INET_B ::/0 2001:DB8:192:B::14\nipv6 ioam timestamp\n!\n\
-          !\n!\ncontrol-plane\n!\nbanner exec ^C\n**************************************************************************\n\
+          \ speed auto\n media-type rj45\n!\nip forward-protocol nd\n!\n!\nno ip http\
+          \ server\nno ip http secure-server\nip route vrf INET_A 0.0.0.0 0.0.0.0\
+          \ 192.0.2.10\nip route vrf INET_B 0.0.0.0 0.0.0.0 192.0.2.14\n!\nipv6 route\
+          \ vrf INET_B ::/0 2001:DB8:192:B2::14\nipv6 route vrf INET_A ::/0 2001:DB8:192:A2::10\n\
+          ipv6 route vrf INET_A ::/0 2001:DB8:192:A::10\nipv6 route vrf INET_B ::/0\
+          \ 2001:DB8:192:B::14\nipv6 ioam timestamp\n!\n!\n!\ncontrol-plane\n!\nbanner\
+          \ exec ^C\n**************************************************************************\n\
           * IOSv is strictly limited to use for evaluation, demonstration and IOS\
           \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
           \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
@@ -935,9 +873,9 @@ nodes:
         content: |-
           Building configuration...
 
-          Current configuration : 3625 bytes
+          Current configuration : 3380 bytes
           !
-          ! Last configuration change at 00:58:53 UTC Sat Jan 3 2026
+          ! Last configuration change at 02:30:32 UTC Sat Jan 3 2026
           !
           version 15.9
           service timestamps debug datetime msec
@@ -1010,7 +948,7 @@ nodes:
            duplex auto
            speed auto
            media-type rj45
-           ipv6 address 2001:DB8:1682::1/64
+           ipv6 address 2001:DB8:192:1682::1/64
           !
           interface GigabitEthernet0/2
            description to isp a
@@ -1029,27 +967,15 @@ nodes:
            speed auto
            media-type rj45
           !
-          router bgp 65200
-           bgp log-neighbor-changes
-           neighbor 2001:DB8:203:A::1 remote-as 1
-           neighbor 203.0.113.1 remote-as 1
-           !
-           address-family ipv4
-            no neighbor 2001:DB8:203:A::1 activate
-            neighbor 203.0.113.1 activate
-           exit-address-family
-           !
-           address-family ipv6
-            neighbor 2001:DB8:203:A::1 activate
-           exit-address-family
-          !
           ip forward-protocol nd
           !
           !
           no ip http server
           no ip http secure-server
           ip nat inside source list 1 interface GigabitEthernet0/2 overload
+          ip route 0.0.0.0 0.0.0.0 203.0.113.1
           !
+          ipv6 route ::/0 2001:DB8:203:A::1
           ipv6 ioam timestamp
           !
           !
@@ -1137,78 +1063,78 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: ios_config.txt
-        content: "Building configuration...\n\n\nCurrent configuration : 7099 bytes\n\
-          !\n! Last configuration change at 00:59:20 UTC Sat Jan 3 2026\n!\nversion\
+        content: "Building configuration...\n\n\nCurrent configuration : 7109 bytes\n\
+          !\n! Last configuration change at 02:31:10 UTC Sat Jan 3 2026\n!\nversion\
           \ 15.9\nservice timestamps debug datetime msec\nservice timestamps log datetime\
           \ msec\nno service password-encryption\n!\nhostname BR2_R1\n!\nboot-start-marker\n\
           boot-end-marker\n!\n!\nno logging console\n!\nno aaa new-model\n!\n!\n!\n\
           mmi polling-interval 60\nno mmi auto-configure\nno mmi pvc\nmmi snmp-timeout\
           \ 180\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\nip domain name marmur.lcl\nip cef\n\
-          no ipv6 cef\n!\nmultilink bundle-name authenticated\n!\n!\n!\ncrypto pki\
-          \ trustpoint VPN_TP\n enrollment url http://192.0.2.1:80\n serial-number\
-          \ none\n ip-address none\n subject-name CN=BR2_R1.marmur.lcl\n revocation-check\
-          \ none\n rsakeypair VPN_KEY\n!\n!\ncrypto pki certificate chain VPN_TP\n\
-          \ certificate 05\n  30820326 3082020E A0030201 02020105 300D0609 2A864886\
+          ipv6 unicast-routing\nipv6 cef\n!\nmultilink bundle-name authenticated\n\
+          !\n!\n!\ncrypto pki trustpoint VPN_TP\n enrollment url http://192.0.2.1:80\n\
+          \ serial-number none\n ip-address none\n revocation-check none\n rsakeypair\
+          \ VPN_KEY\n auto-enroll 80\n!\n!\ncrypto pki certificate chain VPN_TP\n\
+          \ certificate 0A\n  3082030A 308201F2 A0030201 0202010A 300D0609 2A864886\
           \ F70D0101 05050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172\
-          \ 6D75722E 6C636C30\n  1E170D32 36303130 33303034 3134345A 170D3237 30313033\
-          \ 30303431 34345A30\n  3E311A30 18060355 04030C11 4252325F 52312E6D 61726D75\
-          \ 722E6C63 6C312030\n  1E06092A 864886F7 0D010902 16114252 325F5231 2E6D6172\
-          \ 6D75722E 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030\
-          \ 82010A02 82010100\n  91681CF8 425A0392 A7FA6B34 EC55B9CA 2EE54648 7A078536\
-          \ 88A4CCE2 7A6A8760\n  0481A0CB E27BEF74 F72A739C 396E3B08 E186E534 2735C27E\
-          \ 9D4FFC2D 836CD020\n  5B3295C7 1032C538 A09560E8 E6A048F2 C33FD5FA F36E740B\
-          \ E93D856B 31D69AF3\n  2A0145C1 476BC3AB E1B7D8CE 31C5555A C2318C71 C298C293\
-          \ 6E93A4E7 32A44264\n  C70C24C3 87E6E308 94AFDF13 A6F9ED6B 9C1ECCCD 1397748A\
-          \ D1216A9C 5FF2DD8C\n  2AD873A6 57AE892B CE255CCD 1B07EBA7 CD0BD995 6E3FD29C\
-          \ 30E9B733 6A8B3AC6\n  8A23DC73 6B895B99 0FA06C9D 737DF833 9B364CDC 3608A4FA\
-          \ CE3E6A4D 1DEDC26E\n  B44D87E3 C46563F8 62F341A3 8E2CC447 5CFB8DF8 A7CE56A4\
-          \ 1E819B09 3376B181\n  02030100 01A34F30 4D300B06 03551D0F 04040302 05A0301F\
-          \ 0603551D 23041830\n  16801431 47B214FA CAFDDCB2 74E4DB50 7F1F5407 7943A730\
-          \ 1D060355 1D0E0416\n  0414D6CC A1FDE552 177FC7C9 5E3E65CF 2905D612 BCD0300D\
-          \ 06092A86 4886F70D\n  01010505 00038201 0100AA65 5EF472E8 5AFA3197 DAE620C6\
-          \ D2531A07 7EA42004\n  D40B78EF AEA4A191 6D60995C 6B5B7932 3403ED0F AB549144\
-          \ EBE6211E D6EE968C\n  5FEBB8EA 01257AB0 CD57CF00 CA204737 899A0943 5834B3C6\
-          \ 647C3C59 1BC3D9B2\n  DD143D40 4F517921 697B477F 2E5CE527 FDCDB98A 71D9EE87\
-          \ 8B863464 26CF8C29\n  02DC6A8C D5B1093F 61602497 45246BBF B5881D0A E6051F84\
-          \ E0EADCD5 F0743820\n  6F760BF4 BF3DBA96 02306DFF 252B0F32 1DEA8841 B673A29A\
-          \ E13FD46B 2A675323\n  0A71B57C B9D3A170 A564F346 2A2BD3F2 AD864FC6 240BEAE8\
-          \ 8A842749 380EEBE2\n  4D5DE18C B595EF97 D4AD66E2 C39BD4AA 85554720 013CD53A\
-          \ D9EEF2D2 1B6F77DD\n  B65D5BFF C222A207 2A75\n  \tquit\n certificate ca\
-          \ 01\n  3082031A 30820202 A0030201 02020101 300D0609 2A864886 F70D0101 04050030\n\
-          \  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n\
-          \  1E170D32 36303130 33303032 3631395A 170D3239 30313032 30303236 31395A30\n\
-          \  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n\
-          \  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100\n\
-          \  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A BAA82A56\n\
-          \  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A 81B39614\n\
-          \  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531 28ED279D\n\
-          \  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C AD2AA290\n\
-          \  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C 061DEE68\n\
-          \  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5 0722FB1F\n\
-          \  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9 D332D0E9\n\
-          \  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B FE6C1795\n\
-          \  02030100 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E 0603551D\n\
-          \  0F0101FF 04040302 0186301F 0603551D 23041830 16801431 47B214FA CAFDDCB2\n\
-          \  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA FDDCB274\n\
-          \  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201 01004779\n\
-          \  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2 56DA71C8\n\
-          \  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6 140B312B\n\
-          \  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1 2A9BF4CD\n\
-          \  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730 EDBD9C83\n\
-          \  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA FC87B8E0\n\
-          \  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4 2407D011\n\
-          \  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18 69AF3FB2\n\
-          \  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA A7C5\n\
-          \  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
-          interface GigabitEthernet0/0\n ip address 192.168.2.10 255.255.255.0\n duplex\
-          \ auto\n speed auto\n media-type rj45\n!\ninterface GigabitEthernet0/1\n\
-          \ no ip address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n\
-          !\ninterface GigabitEthernet0/2\n no ip address\n shutdown\n duplex auto\n\
-          \ speed auto\n media-type rj45\n!\ninterface GigabitEthernet0/3\n no ip\
-          \ address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n!\nip\
-          \ forward-protocol nd\n!\n!\nno ip http server\nno ip http secure-server\n\
-          ip route 0.0.0.0 0.0.0.0 192.168.2.1\n!\nipv6 ioam timestamp\n!\n!\n!\n\
-          control-plane\n!\nbanner exec ^C\n**************************************************************************\n\
+          \ 6D75722E 6C636C30\n  1E170D32 36303130 33303232 3133365A 170D3237 30313033\
+          \ 30323231 33365A30\n  22312030 1E06092A 864886F7 0D010902 16114252 325F5231\
+          \ 2E6D6172 6D75722E\n  6C636C30 82012230 0D06092A 864886F7 0D010101 05000382\
+          \ 010F0030 82010A02\n  82010100 91681CF8 425A0392 A7FA6B34 EC55B9CA 2EE54648\
+          \ 7A078536 88A4CCE2\n  7A6A8760 0481A0CB E27BEF74 F72A739C 396E3B08 E186E534\
+          \ 2735C27E 9D4FFC2D\n  836CD020 5B3295C7 1032C538 A09560E8 E6A048F2 C33FD5FA\
+          \ F36E740B E93D856B\n  31D69AF3 2A0145C1 476BC3AB E1B7D8CE 31C5555A C2318C71\
+          \ C298C293 6E93A4E7\n  32A44264 C70C24C3 87E6E308 94AFDF13 A6F9ED6B 9C1ECCCD\
+          \ 1397748A D1216A9C\n  5FF2DD8C 2AD873A6 57AE892B CE255CCD 1B07EBA7 CD0BD995\
+          \ 6E3FD29C 30E9B733\n  6A8B3AC6 8A23DC73 6B895B99 0FA06C9D 737DF833 9B364CDC\
+          \ 3608A4FA CE3E6A4D\n  1DEDC26E B44D87E3 C46563F8 62F341A3 8E2CC447 5CFB8DF8\
+          \ A7CE56A4 1E819B09\n  3376B181 02030100 01A34F30 4D300B06 03551D0F 04040302\
+          \ 05A0301F 0603551D\n  23041830 16801431 47B214FA CAFDDCB2 74E4DB50 7F1F5407\
+          \ 7943A730 1D060355\n  1D0E0416 0414D6CC A1FDE552 177FC7C9 5E3E65CF 2905D612\
+          \ BCD0300D 06092A86\n  4886F70D 01010505 00038201 01002335 C77996BE 5EFE143B\
+          \ 0ABC609D 4F52B127\n  CA59124C CB61B586 6C48E663 6143A27C 54EEEA98 0EAB8EA9\
+          \ 36D3FDEF 633673FA\n  8CE1D761 8B1748A2 3E4B93E9 E193153C 4A42DBAE 076FC087\
+          \ 983F6F1B EF24D148\n  9358697C E4A021F0 55987250 DAF071EC 86C238A6 4B93D8A6\
+          \ 62FA0FBF 88DD590F\n  1A7C0A15 A632B194 E37C4295 1F942424 86F56C64 6FD1ED9E\
+          \ F6477713 ADA2732D\n  250E6749 A0651688 1E9DDC2D D1BDC499 982328E8 E38075AF\
+          \ 75A36E90 E009D32E\n  DCE86D53 3EAF4ABA 5D4EC1B5 73CD9F5F 89172164 D7615B78\
+          \ 464BD636 2386733D\n  F1200047 3E69BD5A 3BD1411A 6AF4EC67 7C482500 7D5D8A42\
+          \ 504BC905 8E85F99B\n  5D33A944 366525C7 3EBA0A80 466C\n  \tquit\n certificate\
+          \ ca 01\n  3082031A 30820202 A0030201 02020101 300D0609 2A864886 F70D0101\
+          \ 04050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E\
+          \ 6C636C30\n  1E170D32 36303130 33303032 3631395A 170D3239 30313032 30303236\
+          \ 31395A30\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E\
+          \ 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02\
+          \ 82010100\n  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A\
+          \ BAA82A56\n  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A\
+          \ 81B39614\n  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531\
+          \ 28ED279D\n  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C\
+          \ AD2AA290\n  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C\
+          \ 061DEE68\n  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5\
+          \ 0722FB1F\n  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9\
+          \ D332D0E9\n  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B\
+          \ FE6C1795\n  02030100 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E\
+          \ 0603551D\n  0F0101FF 04040302 0186301F 0603551D 23041830 16801431 47B214FA\
+          \ CAFDDCB2\n  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA\
+          \ FDDCB274\n  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201\
+          \ 01004779\n  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2\
+          \ 56DA71C8\n  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6\
+          \ 140B312B\n  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1\
+          \ 2A9BF4CD\n  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730\
+          \ EDBD9C83\n  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA\
+          \ FC87B8E0\n  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4\
+          \ 2407D011\n  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18\
+          \ 69AF3FB2\n  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA\
+          \ A7C5\n  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\ninterface GigabitEthernet0/0\n ip address 192.168.2.10 255.255.255.0\n\
+          \ duplex auto\n speed auto\n media-type rj45\n ipv6 address 2001:DB8:192:1682::100/64\n\
+          !\ninterface GigabitEthernet0/1\n no ip address\n shutdown\n duplex auto\n\
+          \ speed auto\n media-type rj45\n!\ninterface GigabitEthernet0/2\n no ip\
+          \ address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n!\ninterface\
+          \ GigabitEthernet0/3\n no ip address\n shutdown\n duplex auto\n speed auto\n\
+          \ media-type rj45\n!\nip forward-protocol nd\n!\n!\nno ip http server\n\
+          no ip http secure-server\nip route 0.0.0.0 0.0.0.0 192.168.2.1\n!\nipv6\
+          \ route ::/0 2001:DB8:192:1682::1\nipv6 ioam timestamp\n!\n!\n!\ncontrol-plane\n\
+          !\nbanner exec ^C\n**************************************************************************\n\
           * IOSv is strictly limited to use for evaluation, demonstration and IOS\
           \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
           \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
@@ -1275,8 +1201,8 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: ios_config.txt
-        content: "Building configuration...\n\n\nCurrent configuration : 8720 bytes\n\
-          !\n! Last configuration change at 00:57:30 UTC Sat Jan 3 2026\n!\nversion\
+        content: "Building configuration...\n\n\nCurrent configuration : 8329 bytes\n\
+          !\n! Last configuration change at 02:28:53 UTC Sat Jan 3 2026\n!\nversion\
           \ 15.9\nservice timestamps debug datetime msec\nservice timestamps log datetime\
           \ msec\nno service password-encryption\n!\nhostname BR1_R1\n!\nboot-start-marker\n\
           boot-end-marker\n!\n!\nvrf definition DATA\n rd 10:10\n !\n address-family\
@@ -1291,67 +1217,66 @@ nodes:
           !\n!\n!\n!\n!\n!\n!\n!\nno ip domain lookup\nip domain name marmur.lcl\n\
           ip cef\nipv6 unicast-routing\nipv6 cef\n!\nmultilink bundle-name authenticated\n\
           !\n!\n!\ncrypto pki trustpoint VPN_TP\n enrollment url http://192.0.2.1:80\n\
-          \ serial-number none\n ip-address none\n subject-name CN=BR1_R1.marmur.lcl\n\
-          \ vrf INET_A\n revocation-check none\n rsakeypair VPN_KEY\n!\n!\ncrypto\
-          \ pki certificate chain VPN_TP\n certificate 03\n  30820326 3082020E A0030201\
-          \ 02020103 300D0609 2A864886 F70D0101 05050030\n  1E311C30 1A060355 04030C13\
-          \ 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n  1E170D32 36303130 33303033\
-          \ 3632315A 170D3237 30313033 30303336 32315A30\n  3E311A30 18060355 04030C11\
-          \ 4252315F 52312E6D 61726D75 722E6C63 6C312030\n  1E06092A 864886F7 0D010902\
-          \ 16114252 315F5231 2E6D6172 6D75722E 6C636C30\n  82012230 0D06092A 864886F7\
-          \ 0D010101 05000382 010F0030 82010A02 82010100\n  C961E0C3 4E799589 5382F1C1\
-          \ 08DCE347 8AAB920C 06D77959 D97CD43A 56710996\n  49C82F09 A287A96A 10D59E1C\
-          \ C3AB1CB7 61F9BF4C 14049937 2F82BFC7 BFF60285\n  F67B3AC8 584DDA2F 506D13CA\
-          \ EBE0C38F 85DAF396 3CEA12A1 EAB5E3F9 31BBACC0\n  DA0E3383 1598B7DC 56A0D41B\
-          \ 5FB1D56C 89C0E3F1 D2A54ACC B091B863 F397CDA9\n  8853B533 DFF470DD 6A73EBCE\
-          \ CD7C41CD A470EC75 0A51F60C 8E849182 71EF6A39\n  073B5F16 27A1F0D8 77875A44\
-          \ 62C5BB68 5852D944 846387F5 193F1C43 86FB3711\n  545471EE 7004F392 70409304\
-          \ CFDD85F7 40DF32BF CE25B602 C58E8237 814DC2E1\n  8E7272B4 7B6BC3E8 78DBFA76\
-          \ E7DDC6CD E1835CFF 69B241FA 398BBA06 987A8465\n  02030100 01A34F30 4D300B06\
-          \ 03551D0F 04040302 05A0301F 0603551D 23041830\n  16801431 47B214FA CAFDDCB2\
-          \ 74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416\n  041451E0 31EF9C28 34F14243\
-          \ 5474AF60 6A3E0E85 3E33300D 06092A86 4886F70D\n  01010505 00038201 01007AE2\
-          \ EF050BCD 8B9DE7AE 81DB0DEA 4A847473 EC487F7E\n  A1502F25 7B916660 D4C92118\
-          \ 2705FF55 46D579EE EC5D32F1 46FFA961 F029D855\n  611F988E A2D826B8 032E8636\
-          \ B0778A0C F52F8A45 FB968216 24E36206 9E28C82A\n  FAC2FD90 49DFCDBB 6C9392DA\
-          \ 0DAD8B14 69EBC20E D2FFE99A 06F136D6 9E439BEA\n  96421AD3 D92E83B4 853D30AB\
-          \ 84BAD4F8 184DFF75 5DA97BB9 805CAF20 C071C458\n  EDC53CBA 0F1E041E 9559C15F\
-          \ 1AB1033A D59701E4 8617DB32 02C095A3 E9C8E355\n  4F6A59AF 1903A4D9 F5A73ABE\
-          \ 429D13D9 73DC75ED 27B9BD35 48AAE7EF 089266B6\n  DE23DA02 20D2D2DC B97E64B0\
-          \ 29AF5D2A 293FA96C 790FC76C EF69099D 9C995EC0\n  060A1405 8EFBDA98 5D02\n\
-          \  \tquit\n certificate ca 01\n  3082031A 30820202 A0030201 02020101 300D0609\
-          \ 2A864886 F70D0101 04050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31\
-          \ 2E6D6172 6D75722E 6C636C30\n  1E170D32 36303130 33303032 3631395A 170D3239\
-          \ 30313032 30303236 31395A30\n  1E311C30 1A060355 04030C13 48515F48 75622D31\
-          \ 2E6D6172 6D75722E 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382\
-          \ 010F0030 82010A02 82010100\n  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA\
-          \ 525F8D36 C58DA42A BAA82A56\n  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2\
-          \ 313E892E FA31A20A 81B39614\n  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA\
-          \ 0A15D2CB DDA67531 28ED279D\n  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2\
-          \ 7BEC671F 8E57FE6C AD2AA290\n  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871\
-          \ D943E980 341AEA7C 061DEE68\n  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C\
-          \ 7AC0F334 5B3EC7E5 0722FB1F\n  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA\
-          \ 7748BD7B C07F8CE9 D332D0E9\n  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E\
-          \ C663814F 28F9F17B FE6C1795\n  02030100 01A36330 61300F06 03551D13 0101FF04\
-          \ 05300301 01FF300E 0603551D\n  0F0101FF 04040302 0186301F 0603551D 23041830\
-          \ 16801431 47B214FA CAFDDCB2\n  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416\
-          \ 04143147 B214FACA FDDCB274\n  E4DB507F 1F540779 43A7300D 06092A86 4886F70D\
-          \ 01010405 00038201 01004779\n  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD\
-          \ 6774767A 736E1DE2 56DA71C8\n  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB\
-          \ E788E258 0CAB48A6 140B312B\n  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2\
-          \ EE892671 87EF20B1 2A9BF4CD\n  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731\
-          \ 63A72F8B 74959730 EDBD9C83\n  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D\
-          \ 6E82A2F2 9456DAEA FC87B8E0\n  0CE20246 B6DC3983 4101E70E B8B21506 46D87352\
-          \ 052F48E7 90B12BA4 2407D011\n  1B4F9A70 45047459 8BD70744 77720D42 B07011B1\
-          \ BA5B8D8E BFF99E18 69AF3FB2\n  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838\
-          \ AB536465 365D49FA A7C5\n  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n\
-          !\n!\n!\n!\n!\n!\n!\n!\ninterface Loopback10\n vrf forwarding DATA\n ip\
-          \ address 1.1.10.1 255.255.255.255\n ipv6 address ::1:1:10:1/128\n!\ninterface\
-          \ Loopback20\n vrf forwarding MGMT\n ip address 1.1.20.1 255.255.255.255\n\
-          \ ipv6 address ::1:1:20:1/128\n!\ninterface GigabitEthernet0/0\n description\
-          \ To ISP A\n vrf forwarding INET_A\n ip address 203.0.113.11 255.255.255.128\n\
-          \ ip nat outside\n ip virtual-reassembly in\n duplex auto\n speed auto\n\
-          \ media-type rj45\n ipv6 address 2001:DB8:203:A::11/64\n!\ninterface GigabitEthernet0/1\n\
+          \ serial-number none\n ip-address none\n vrf INET_A\n revocation-check none\n\
+          \ rsakeypair VPN_KEY\n auto-enroll 80\n!\n!\ncrypto pki certificate chain\
+          \ VPN_TP\n certificate 09\n  3082030A 308201F2 A0030201 02020109 300D0609\
+          \ 2A864886 F70D0101 05050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31\
+          \ 2E6D6172 6D75722E 6C636C30\n  1E170D32 36303130 33303232 3033375A 170D3237\
+          \ 30313033 30323230 33375A30\n  22312030 1E06092A 864886F7 0D010902 16114252\
+          \ 315F5231 2E6D6172 6D75722E\n  6C636C30 82012230 0D06092A 864886F7 0D010101\
+          \ 05000382 010F0030 82010A02\n  82010100 C961E0C3 4E799589 5382F1C1 08DCE347\
+          \ 8AAB920C 06D77959 D97CD43A\n  56710996 49C82F09 A287A96A 10D59E1C C3AB1CB7\
+          \ 61F9BF4C 14049937 2F82BFC7\n  BFF60285 F67B3AC8 584DDA2F 506D13CA EBE0C38F\
+          \ 85DAF396 3CEA12A1 EAB5E3F9\n  31BBACC0 DA0E3383 1598B7DC 56A0D41B 5FB1D56C\
+          \ 89C0E3F1 D2A54ACC B091B863\n  F397CDA9 8853B533 DFF470DD 6A73EBCE CD7C41CD\
+          \ A470EC75 0A51F60C 8E849182\n  71EF6A39 073B5F16 27A1F0D8 77875A44 62C5BB68\
+          \ 5852D944 846387F5 193F1C43\n  86FB3711 545471EE 7004F392 70409304 CFDD85F7\
+          \ 40DF32BF CE25B602 C58E8237\n  814DC2E1 8E7272B4 7B6BC3E8 78DBFA76 E7DDC6CD\
+          \ E1835CFF 69B241FA 398BBA06\n  987A8465 02030100 01A34F30 4D300B06 03551D0F\
+          \ 04040302 05A0301F 0603551D\n  23041830 16801431 47B214FA CAFDDCB2 74E4DB50\
+          \ 7F1F5407 7943A730 1D060355\n  1D0E0416 041451E0 31EF9C28 34F14243 5474AF60\
+          \ 6A3E0E85 3E33300D 06092A86\n  4886F70D 01010505 00038201 0100BC09 A5384816\
+          \ 11BF510C EDA1467B 4703F4E7\n  7455DF32 1946018B 2ED02C93 8F320D5E A5BBBF57\
+          \ FAB110AC CC3BE795 03454447\n  35F25C3D 16813494 4C906C16 5D3FCB90 E489F65B\
+          \ 34A2449E A3706374 E3CECEBA\n  41C7E625 77BBCE90 44ECA36D 8E0B4ED3 6D0A789E\
+          \ 201D48AC FAFA655F 93DA4C65\n  6E3FD05B D1CF31CD A94ADC0B 3B089887 457DC16F\
+          \ 10863DC1 B7949EDC 806E4768\n  B8416950 87E50CC4 BDFDA84A 3F741FE3 17DADE87\
+          \ 604922E2 19A0F55A 91781903\n  EE1F4F97 DDD87C3F AE5C6E5A E0059182 22A04FF7\
+          \ 3A5AC441 19137989 95A2E1BE\n  B98A1096 B298A44D F4C9DB80 EBEA45ED 47083232\
+          \ F156D447 6D314824 75AF5D7F\n  30D71C28 11702486 7CE547D1 0280\n  \tquit\n\
+          \ certificate ca 01\n  3082031A 30820202 A0030201 02020101 300D0609 2A864886\
+          \ F70D0101 04050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172\
+          \ 6D75722E 6C636C30\n  1E170D32 36303130 33303032 3631395A 170D3239 30313032\
+          \ 30303236 31395A30\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172\
+          \ 6D75722E 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030\
+          \ 82010A02 82010100\n  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36\
+          \ C58DA42A BAA82A56\n  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E\
+          \ FA31A20A 81B39614\n  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB\
+          \ DDA67531 28ED279D\n  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F\
+          \ 8E57FE6C AD2AA290\n  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980\
+          \ 341AEA7C 061DEE68\n  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334\
+          \ 5B3EC7E5 0722FB1F\n  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B\
+          \ C07F8CE9 D332D0E9\n  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F\
+          \ 28F9F17B FE6C1795\n  02030100 01A36330 61300F06 03551D13 0101FF04 05300301\
+          \ 01FF300E 0603551D\n  0F0101FF 04040302 0186301F 0603551D 23041830 16801431\
+          \ 47B214FA CAFDDCB2\n  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147\
+          \ B214FACA FDDCB274\n  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405\
+          \ 00038201 01004779\n  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A\
+          \ 736E1DE2 56DA71C8\n  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258\
+          \ 0CAB48A6 140B312B\n  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671\
+          \ 87EF20B1 2A9BF4CD\n  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B\
+          \ 74959730 EDBD9C83\n  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2\
+          \ 9456DAEA FC87B8E0\n  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7\
+          \ 90B12BA4 2407D011\n  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E\
+          \ BFF99E18 69AF3FB2\n  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465\
+          \ 365D49FA A7C5\n  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
+          !\n!\n!\n!\n!\ninterface Loopback10\n vrf forwarding DATA\n ip address 1.1.10.1\
+          \ 255.255.255.255\n ipv6 address ::1:1:10:1/128\n!\ninterface Loopback20\n\
+          \ vrf forwarding MGMT\n ip address 1.1.20.1 255.255.255.255\n ipv6 address\
+          \ ::1:1:20:1/128\n!\ninterface GigabitEthernet0/0\n description To ISP A\n\
+          \ vrf forwarding INET_A\n ip address 203.0.113.11 255.255.255.128\n ip nat\
+          \ outside\n ip virtual-reassembly in\n duplex auto\n speed auto\n media-type\
+          \ rj45\n ipv6 address 2001:DB8:203:A::11/64\n!\ninterface GigabitEthernet0/1\n\
           \ description LAN\n vrf forwarding DATA\n ip address 192.168.1.1 255.255.255.0\n\
           \ ip nat inside\n ip virtual-reassembly in\n standby version 2\n standby\
           \ 10 ip 192.168.1.254\n standby 10 preempt\n standby 11 ipv6 2001:DB8:1921:1681::254/64\n\
@@ -1359,16 +1284,12 @@ nodes:
           \ address 2001:DB8:1921:1681::1/64\n!\ninterface GigabitEthernet0/2\n no\
           \ ip address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n!\n\
           interface GigabitEthernet0/3\n no ip address\n shutdown\n duplex auto\n\
-          \ speed auto\n media-type rj45\n!\nrouter bgp 65100\n bgp router-id 1.1.0.1\n\
-          \ bgp log-neighbor-changes\n !\n address-family ipv4 vrf INET_A\n  network\
-          \ 203.0.113.0 mask 255.255.255.128\n  neighbor 203.0.113.1 remote-as 1\n\
-          \  neighbor 203.0.113.1 activate\n exit-address-family\n !\n address-family\
-          \ ipv6 vrf INET_A\n  network 2001:DB8:203:A::/64\n  neighbor 2001:DB8:203:A::1\
-          \ remote-as 1\n  neighbor 2001:DB8:203:A::1 activate\n exit-address-family\n\
-          !\nip forward-protocol nd\n!\n!\nno ip http server\nno ip http secure-server\n\
-          ip nat inside source list 1 interface GigabitEthernet0/0 overload\n!\nipv6\
-          \ ioam timestamp\n!\n!\naccess-list 1 permit 192.168.1.0 0.0.0.255\n!\n\
-          control-plane\n!\nbanner exec ^C\n**************************************************************************\n\
+          \ speed auto\n media-type rj45\n!\nip forward-protocol nd\n!\n!\nno ip http\
+          \ server\nno ip http secure-server\nip nat inside source list 1 interface\
+          \ GigabitEthernet0/0 overload\nip route vrf INET_A 0.0.0.0 0.0.0.0 203.0.113.1\n\
+          !\nipv6 route vrf INET_A ::/0 2001:DB8:203:A::1\nipv6 ioam timestamp\n!\n\
+          !\naccess-list 1 permit 192.168.1.0 0.0.0.255\n!\ncontrol-plane\n!\nbanner\
+          \ exec ^C\n**************************************************************************\n\
           * IOSv is strictly limited to use for evaluation, demonstration and IOS\
           \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
           \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
@@ -1435,122 +1356,229 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: ios_config.txt
-        content: "Building configuration...\n\n\nCurrent configuration : 8492 bytes\n\
-          !\n! Last configuration change at 00:57:31 UTC Sat Jan 3 2026\n!\nversion\
-          \ 15.9\nservice timestamps debug datetime msec\nservice timestamps log datetime\
-          \ msec\nno service password-encryption\n!\nhostname BR1_R2\n!\nboot-start-marker\n\
-          boot-end-marker\n!\n!\nvrf definition DATA\n rd 10:10\n !\n address-family\
-          \ ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n\
-          !\nvrf definition INET_A\n rd 11:11\n !\n address-family ipv4\n exit-address-family\n\
-          \ !\n address-family ipv6\n exit-address-family\n!\nvrf definition INET_B\n\
-          \ rd 12:12\n !\n address-family ipv4\n exit-address-family\n !\n address-family\
-          \ ipv6\n exit-address-family\n!\nvrf definition MGMT\n rd 20:20\n !\n address-family\
-          \ ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n\
-          !\nno logging console\n!\nno aaa new-model\n!\n!\n!\nmmi polling-interval\
-          \ 60\nno mmi auto-configure\nno mmi pvc\nmmi snmp-timeout 180\n!\n!\n!\n\
-          !\n!\n!\n!\n!\n!\n!\n!\nip domain name marmur.lcl\nip cef\nipv6 unicast-routing\n\
-          ipv6 cef\n!\nmultilink bundle-name authenticated\n!\n!\n!\ncrypto pki trustpoint\
-          \ VPN_TP\n enrollment url http://192.0.2.5:80\n serial-number none\n ip-address\
-          \ none\n subject-name CN=BR1_R2.marmur.lcl\n vrf INET_B\n revocation-check\
-          \ none\n rsakeypair VPN_TP\n!\n!\ncrypto pki certificate chain VPN_TP\n\
-          \ certificate 04\n  308202A2 3082018A A0030201 02020104 300D0609 2A864886\
-          \ F70D0101 05050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172\
-          \ 6D75722E 6C636C30\n  1E170D32 36303130 33303033 3932395A 170D3237 30313033\
-          \ 30303339 32395A30\n  3E311A30 18060355 04030C11 4252315F 52322E6D 61726D75\
-          \ 722E6C63 6C312030\n  1E06092A 864886F7 0D010902 16114252 315F5232 2E6D6172\
-          \ 6D75722E 6C636C30\n  819F300D 06092A86 4886F70D 01010105 0003818D 00308189\
-          \ 02818100 9ECC9E74\n  9097D3C2 B6613FD2 474DB041 13D6B472 ED31724B C2C84835\
-          \ CD647363 F2638CA0\n  2BCF7A49 121B88FC 23550097 4EAB241E C95FA0C8 21CF1040\
-          \ 82348BD1 737BA470\n  B0B174E0 A228E834 C30EC6B4 24C6317A 9A6D56A8 4CDA94B4\
-          \ 53AC9910 DA5E130C\n  DB2033C6 942AAFF7 631AB411 350050F6 00701E27 34A5F800\
-          \ 2A30C341 02030100\n  01A34F30 4D300B06 03551D0F 04040302 05A0301F 0603551D\
-          \ 23041830 16801431\n  47B214FA CAFDDCB2 74E4DB50 7F1F5407 7943A730 1D060355\
-          \ 1D0E0416 041460F1\n  E1C68936 E899D229 A5584539 763A1F11 06A0300D 06092A86\
-          \ 4886F70D 01010505\n  00038201 0100C08A 0295B54D EFE72FA1 42751950 A219D8BE\
-          \ 95B3B37F 1CBF2429\n  D4529110 97E2A2EE 4479382D 2643F0A2 9292FA23 ED4FDDC8\
-          \ 50BDB3A5 3F63D78D\n  F20A2C90 DB4A5909 F0D4D6E4 1CF29A7F E0A2515B 7D45AF7E\
-          \ F0EE4164 F63BFE1E\n  8032A8C5 2247A472 537FCFE3 4AFC6EC6 DF53A01B 6BF23083\
-          \ CE780FD6 656885D1\n  61554935 368984F7 70EDD83F C86D40DE F62A2C52 60662527\
-          \ 405D64B0 A31730DA\n  1F17497F 941D51FB AC93B64D CF4CE0EB 4C2EB1E4 D681E0C0\
-          \ F896D079 457D2623\n  66C8D1E8 6F52924A C3EB7AC8 60E054C9 B0AC5BAA 1E486142\
-          \ 76AD4313 F28DF5E2\n  0E38890A 79247435 8347CC43 B831FDDA 0BE1EA76 FB3F98F8\
-          \ 8D2129D2 66120503\n  D051E11C 5D9B\n  \tquit\n certificate ca 01\n  3082031A\
-          \ 30820202 A0030201 02020101 300D0609 2A864886 F70D0101 04050030\n  1E311C30\
-          \ 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n  1E170D32\
-          \ 36303130 33303032 3631395A 170D3239 30313032 30303236 31395A30\n  1E311C30\
-          \ 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n  82012230\
-          \ 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100\n  D70D1631\
-          \ 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A BAA82A56\n  056FF21B\
-          \ 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A 81B39614\n  647DDC55\
-          \ 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531 28ED279D\n  620DBC5D\
-          \ 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C AD2AA290\n  8C38D6AC\
-          \ AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C 061DEE68\n  3A148587\
-          \ 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5 0722FB1F\n  2E11CB46\
-          \ 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9 D332D0E9\n  49E1D7FD\
-          \ 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B FE6C1795\n  02030100\
-          \ 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E 0603551D\n  0F0101FF\
-          \ 04040302 0186301F 0603551D 23041830 16801431 47B214FA CAFDDCB2\n  74E4DB50\
-          \ 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA FDDCB274\n  E4DB507F\
-          \ 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201 01004779\n  94C937D3\
-          \ 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2 56DA71C8\n  5D3BD17E\
-          \ 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6 140B312B\n  CF2B3413\
-          \ 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1 2A9BF4CD\n  EB1F5DD0\
-          \ 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730 EDBD9C83\n  3A4100CF\
-          \ 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA FC87B8E0\n  0CE20246\
-          \ B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4 2407D011\n  1B4F9A70\
-          \ 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18 69AF3FB2\n  AC66D710\
-          \ 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA A7C5\n  \tquit\n\
-          !\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface Loopback10\n\
-          \ vrf forwarding DATA\n ip address 1.1.10.2 255.255.255.255\n ipv6 address\
-          \ ::1:1:10:2/128\n!\ninterface Loopback20\n vrf forwarding MGMT\n ip address\
-          \ 1.1.20.1 255.255.255.255\n ipv6 address ::1:1:20:2/128\n!\ninterface GigabitEthernet0/0\n\
-          \ description To ISP B\n vrf forwarding INET_B\n ip address 203.0.113.211\
-          \ 255.255.255.128\n ip nat outside\n ip virtual-reassembly in\n duplex auto\n\
-          \ speed auto\n media-type rj45\n ipv6 address 2001:DB8:203:B::211/64\n!\n\
-          interface GigabitEthernet0/1\n description LAN\n vrf forwarding DATA\n ip\
-          \ address 192.168.1.2 255.255.255.0\n ip nat inside\n ip virtual-reassembly\
-          \ in\n standby version 2\n standby 1 priority 95\n standby 1 preempt\n standby\
-          \ 10 ip 192.168.1.254\n standby 10 priority 90\n standby 10 preempt\n standby\
-          \ 11 ipv6 2001:DB8:1921:1681::254/64\n standby 11 priority 90\n standby\
-          \ 11 preempt\n duplex auto\n speed auto\n media-type rj45\n ipv6 address\
-          \ 2001:DB8:1921:1681::2/64\n!\ninterface GigabitEthernet0/2\n no ip address\n\
-          \ shutdown\n duplex auto\n speed auto\n media-type rj45\n!\ninterface GigabitEthernet0/3\n\
-          \ no ip address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n\
-          !\nrouter bgp 65100\n bgp router-id 1.1.0.2\n bgp log-neighbor-changes\n\
-          \ !\n address-family ipv4 vrf INET_B\n  network 203.0.113.128 mask 255.255.255.128\n\
-          \  neighbor 203.0.113.129 remote-as 2\n  neighbor 203.0.113.129 activate\n\
-          \ exit-address-family\n !\n address-family ipv6 vrf INET_B\n  network 2001:DB8:203:B::/64\n\
-          \  neighbor 2001:DB8:203:B::129 remote-as 2\n  neighbor 2001:DB8:203:B::129\
-          \ activate\n exit-address-family\n!\nip forward-protocol nd\n!\n!\nno ip\
-          \ http server\nno ip http secure-server\nip nat inside source list 1 interface\
-          \ GigabitEthernet0/0 overload\n!\nipv6 ioam timestamp\n!\n!\naccess-list\
-          \ 1 permit 192.168.1.0 0.0.0.255\n!\ncontrol-plane\n!\nbanner exec ^C\n\
-          **************************************************************************\n\
-          * IOSv is strictly limited to use for evaluation, demonstration and IOS\
-          \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
-          \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
-          \ in part, *\n* of the IOSv Software or Documentation to any third party\
-          \ for any       *\n* purposes is expressly prohibited except as otherwise\
-          \ authorized by     *\n* Cisco in writing.                             \
-          \                         *\n**************************************************************************^C\n\
-          banner incoming ^C\n**************************************************************************\n\
-          * IOSv is strictly limited to use for evaluation, demonstration and IOS\
-          \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
-          \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
-          \ in part, *\n* of the IOSv Software or Documentation to any third party\
-          \ for any       *\n* purposes is expressly prohibited except as otherwise\
-          \ authorized by     *\n* Cisco in writing.                             \
-          \                         *\n**************************************************************************^C\n\
-          banner login ^C\n**************************************************************************\n\
-          * IOSv is strictly limited to use for evaluation, demonstration and IOS\
-          \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
-          \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
-          \ in part, *\n* of the IOSv Software or Documentation to any third party\
-          \ for any       *\n* purposes is expressly prohibited except as otherwise\
-          \ authorized by     *\n* Cisco in writing.                             \
-          \                         *\n**************************************************************************^C\n\
-          !\nline con 0\n exec-timeout 0 0\nline aux 0\nline vty 0 4\n exec-timeout\
-          \ 0 0\n login\n transport input none\n!\nno scheduler allocate\n!\nend"
+        content: |-
+          Building configuration...
+
+
+          Current configuration : 4650 bytes
+          !
+          ! Last configuration change at 02:28:55 UTC Sat Jan 3 2026
+          !
+          version 15.9
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          !
+          hostname BR1_R2
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition DATA
+           rd 10:10
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          vrf definition INET_A
+           rd 11:11
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          vrf definition INET_B
+           rd 12:12
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          vrf definition MGMT
+           rd 20:20
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          no logging console
+          !
+          no aaa new-model
+          !
+          !
+          !
+          mmi polling-interval 60
+          no mmi auto-configure
+          no mmi pvc
+          mmi snmp-timeout 180
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip domain name marmur.lcl
+          ip cef
+          ipv6 unicast-routing
+          ipv6 cef
+          !
+          multilink bundle-name authenticated
+          !
+          !
+          !
+          crypto pki trustpoint VPN_TP
+           enrollment url http://192.0.2.1:80
+           serial-number none
+           ip-address none
+           vrf INET_B
+           revocation-check none
+           rsakeypair VPN_KEY
+           auto-enroll 80
+          !
+          !
+          crypto pki certificate chain VPN_TP
+          !
+          redundancy
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback10
+           vrf forwarding DATA
+           ip address 1.1.10.2 255.255.255.255
+           ipv6 address ::1:1:10:2/128
+          !
+          interface Loopback20
+           vrf forwarding MGMT
+           ip address 1.1.20.1 255.255.255.255
+           ipv6 address ::1:1:20:2/128
+          !
+          interface GigabitEthernet0/0
+           description To ISP B
+           vrf forwarding INET_B
+           ip address 203.0.113.211 255.255.255.128
+           ip nat outside
+           ip virtual-reassembly in
+           duplex auto
+           speed auto
+           media-type rj45
+           ipv6 address 2001:DB8:203:B::211/64
+          !
+          interface GigabitEthernet0/1
+           description LAN
+           vrf forwarding DATA
+           ip address 192.168.1.2 255.255.255.0
+           ip nat inside
+           ip virtual-reassembly in
+           standby version 2
+           standby 1 priority 95
+           standby 1 preempt
+           standby 10 ip 192.168.1.254
+           standby 10 priority 90
+           standby 10 preempt
+           standby 11 ipv6 2001:DB8:1921:1681::254/64
+           standby 11 priority 90
+           standby 11 preempt
+           duplex auto
+           speed auto
+           media-type rj45
+           ipv6 address 2001:DB8:1921:1681::2/64
+          !
+          interface GigabitEthernet0/2
+           no ip address
+           shutdown
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/3
+           no ip address
+           shutdown
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          ip forward-protocol nd
+          !
+          !
+          no ip http server
+          no ip http secure-server
+          ip nat inside source list 1 interface GigabitEthernet0/0 overload
+          ip route vrf INET_B 0.0.0.0 0.0.0.0 203.0.113.129
+          !
+          ipv6 route vrf INET_B ::/0 2001:DB8:203:B::129
+          ipv6 ioam timestamp
+          !
+          !
+          access-list 1 permit 192.168.1.0 0.0.0.255
+          !
+          control-plane
+          !
+          banner exec ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner incoming ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner login ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          !
+          line con 0
+           exec-timeout 0 0
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login
+           transport input none
+          !
+          no scheduler allocate
+          !
+          end
     cpu_limit: null
     cpus: null
     data_volume: null
@@ -1592,126 +1620,226 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: ios_config.txt
-        content: "Building configuration...\n\n\nCurrent configuration : 8781 bytes\n\
-          !\n! Last configuration change at 00:59:11 UTC Sat Jan 3 2026\n!\nversion\
-          \ 15.9\nservice timestamps debug datetime msec\nservice timestamps log datetime\
-          \ msec\nno service password-encryption\n!\nhostname BR4_R1\n!\nboot-start-marker\n\
-          boot-end-marker\n!\n!\nvrf definition DATA\n rd 10:10\n !\n address-family\
-          \ ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n\
-          !\nvrf definition INET_A\n rd 11:11\n !\n address-family ipv4\n exit-address-family\n\
-          \ !\n address-family ipv6\n exit-address-family\n!\nvrf definition INET_B\n\
-          \ rd 12:12\n !\n address-family ipv4\n exit-address-family\n !\n address-family\
-          \ ipv6\n exit-address-family\n!\nvrf definition MGMT\n rd 20:20\n !\n address-family\
-          \ ipv4\n exit-address-family\n !\n address-family ipv6\n exit-address-family\n\
-          !\nno logging console\n!\nno aaa new-model\n!\n!\n!\nmmi polling-interval\
-          \ 60\nno mmi auto-configure\nno mmi pvc\nmmi snmp-timeout 180\n!\n!\n!\n\
-          !\n!\n!\n!\n!\n!\n!\n!\nip domain name marmur.lcl\nip cef\nipv6 unicast-routing\n\
-          ipv6 cef\n!\nmultilink bundle-name authenticated\n!\n!\n!\ncrypto pki trustpoint\
-          \ VPN_TP\n enrollment url http://192.0.2.1:80\n serial-number none\n ip-address\
-          \ none\n subject-name CN=BR4_R1.marmur.lcl\n vrf INET_A\n revocation-check\
-          \ none\n rsakeypair VPN_KEY\n!\n!\ncrypto pki certificate chain VPN_TP\n\
-          \ certificate 07\n  30820326 3082020E A0030201 02020107 300D0609 2A864886\
-          \ F70D0101 05050030\n  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172\
-          \ 6D75722E 6C636C30\n  1E170D32 36303130 33303035 3430335A 170D3237 30313033\
-          \ 30303534 30335A30\n  3E311A30 18060355 04030C11 4252345F 52312E6D 61726D75\
-          \ 722E6C63 6C312030\n  1E06092A 864886F7 0D010902 16114252 345F5231 2E6D6172\
-          \ 6D75722E 6C636C30\n  82012230 0D06092A 864886F7 0D010101 05000382 010F0030\
-          \ 82010A02 82010100\n  B5AD59FF 56DA7BF7 44472F5A 6A99CAB6 95DB223D 0964985B\
-          \ 9CAEC40A CF309E69\n  A1A110BD 0DA760CD F9BCDE68 9CFD6629 1ABAADCC 8265FFE0\
-          \ 00DE8551 2C21BAB9\n  DD0A0199 DFC150D3 54E90529 6635A310 621253D9 79DEDD67\
-          \ 27609075 FFCD43A2\n  C568EBEA 930DF468 E2F5ADF4 3448954F 552FBD30 EAEE031A\
-          \ 80C31402 F76EF96B\n  F0D8F990 D0CCB628 E999B733 4C9E403D B2CDC5D0 9109A0ED\
-          \ 33652EFD 0FBBC7F4\n  47BD39E6 62BCE858 97D19E33 9F2866B2 933FE1FC DB687864\
-          \ F24976A9 EC7B5379\n  F42CC6CF 883BD153 BFD3C42B 96AF3DE7 BCFEDB82 C7834648\
-          \ 5D27905C A3C08A56\n  89EB2CF3 13EA3399 0BF3F035 E17E026E 52E7B599 751E939D\
-          \ DA4FE2AC 7F4DEFE1\n  02030100 01A34F30 4D300B06 03551D0F 04040302 05A0301F\
-          \ 0603551D 23041830\n  16801431 47B214FA CAFDDCB2 74E4DB50 7F1F5407 7943A730\
-          \ 1D060355 1D0E0416\n  0414862B 21142061 F0417553 0C2F0AA7 9AEFDE5A 7D6B300D\
-          \ 06092A86 4886F70D\n  01010505 00038201 01000667 5366EA0A BD8D9B26 962A58A7\
-          \ FD4470B6 59BE686A\n  407D713C 234280DD 0AF91089 5E9E9E40 C355DAA1 AEF786E5\
-          \ 3EF9E021 452319A5\n  425D3E8A 85EF3943 4BFEA93E B395C890 6A86CC98 C9EF164C\
-          \ 4C384ADA 041164F8\n  A678F94D D76FAF90 5012E072 55926059 ABD87F5D 7D9DD89B\
-          \ D016202B D78124A1\n  0B05D241 9A786676 13335CFA D9F80108 437E2630 11853567\
-          \ 715646BB 26130C0F\n  061617AD 74D05B0B E2D767FB 61542BE6 CFA63EF0 28F13108\
-          \ 70F60090 CDB1687D\n  D29FF508 A7CEBDD9 DBDBBD69 A24DEC9F 6C8DAE2E EDCB1062\
-          \ F30A346F 5B702C9D\n  386167AE D07B867C 4B682C23 3BB57D51 B71EF690 9A8695D7\
-          \ 4F93A139 C70A5E40\n  D92A597F 08090050 F88C\n  \tquit\n certificate ca\
-          \ 01\n  3082031A 30820202 A0030201 02020101 300D0609 2A864886 F70D0101 04050030\n\
-          \  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n\
-          \  1E170D32 36303130 33303032 3631395A 170D3239 30313032 30303236 31395A30\n\
-          \  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30\n\
-          \  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100\n\
-          \  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A BAA82A56\n\
-          \  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A 81B39614\n\
-          \  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531 28ED279D\n\
-          \  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C AD2AA290\n\
-          \  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C 061DEE68\n\
-          \  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5 0722FB1F\n\
-          \  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9 D332D0E9\n\
-          \  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B FE6C1795\n\
-          \  02030100 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E 0603551D\n\
-          \  0F0101FF 04040302 0186301F 0603551D 23041830 16801431 47B214FA CAFDDCB2\n\
-          \  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA FDDCB274\n\
-          \  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201 01004779\n\
-          \  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2 56DA71C8\n\
-          \  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6 140B312B\n\
-          \  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1 2A9BF4CD\n\
-          \  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730 EDBD9C83\n\
-          \  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA FC87B8E0\n\
-          \  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4 2407D011\n\
-          \  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18 69AF3FB2\n\
-          \  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA A7C5\n\
-          \  \tquit\n!\nredundancy\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n\
-          interface Loopback10\n vrf forwarding DATA\n ip address 1.4.10.1 255.255.255.255\n\
-          \ ipv6 address ::1:4:10:1/128\n!\ninterface Loopback20\n vrf forwarding\
-          \ MGMT\n ip address 1.4.20.1 255.255.255.255\n ipv6 address ::1:4:20:1/128\n\
-          !\ninterface GigabitEthernet0/0\n description to branch wan cloud\n no ip\
-          \ address\n duplex auto\n speed auto\n!\ninterface GigabitEthernet0/0.11\n\
-          \ description connection to isp a\n encapsulation dot1Q 11\n vrf forwarding\
-          \ INET_A\n ip address 203.0.113.41 255.255.255.128\n ip nat outside\n ip\
-          \ virtual-reassembly in\n ipv6 address 2001:DB8:203:A::41/64\n!\ninterface\
-          \ GigabitEthernet0/0.12\n encapsulation dot1Q 12\n vrf forwarding INET_B\n\
-          \ ip address 203.0.113.241 255.255.255.128\n ipv6 address 2001:DB8:203:B::241/64\n\
-          !\ninterface GigabitEthernet0/1\n no ip address\n shutdown\n duplex auto\n\
-          \ speed auto\n media-type rj45\n!\ninterface GigabitEthernet0/2\n no ip\
-          \ address\n shutdown\n duplex auto\n speed auto\n media-type rj45\n!\ninterface\
-          \ GigabitEthernet0/3\n no ip address\n shutdown\n duplex auto\n speed auto\n\
-          \ media-type rj45\n!\nrouter bgp 65400\n bgp router-id 1.4.0.1\n bgp log-neighbor-changes\n\
-          \ !\n address-family ipv4 vrf INET_A\n  neighbor 203.0.113.1 remote-as 1\n\
-          \  neighbor 203.0.113.1 activate\n exit-address-family\n !\n address-family\
-          \ ipv6 vrf INET_A\n  neighbor 2001:DB8:203:A::1 remote-as 1\n  neighbor\
-          \ 2001:DB8:203:A::1 activate\n exit-address-family\n !\n address-family\
-          \ ipv4 vrf INET_B\n  neighbor 203.0.113.129 remote-as 2\n  neighbor 203.0.113.129\
-          \ activate\n exit-address-family\n !\n address-family ipv6 vrf INET_B\n\
-          \  neighbor 2001:DB8:203:B::129 remote-as 2\n  neighbor 2001:DB8:203:B::129\
-          \ activate\n exit-address-family\n!\nip forward-protocol nd\n!\n!\nno ip\
-          \ http server\nno ip http secure-server\n!\nipv6 ioam timestamp\n!\n!\n\
-          !\ncontrol-plane\n!\nbanner exec ^C\n**************************************************************************\n\
-          * IOSv is strictly limited to use for evaluation, demonstration and IOS\
-          \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
-          \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
-          \ in part, *\n* of the IOSv Software or Documentation to any third party\
-          \ for any       *\n* purposes is expressly prohibited except as otherwise\
-          \ authorized by     *\n* Cisco in writing.                             \
-          \                         *\n**************************************************************************^C\n\
-          banner incoming ^C\n**************************************************************************\n\
-          * IOSv is strictly limited to use for evaluation, demonstration and IOS\
-          \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
-          \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
-          \ in part, *\n* of the IOSv Software or Documentation to any third party\
-          \ for any       *\n* purposes is expressly prohibited except as otherwise\
-          \ authorized by     *\n* Cisco in writing.                             \
-          \                         *\n**************************************************************************^C\n\
-          banner login ^C\n**************************************************************************\n\
-          * IOSv is strictly limited to use for evaluation, demonstration and IOS\
-          \  *\n* education. IOSv is provided as-is and is not supported by Cisco's\
-          \      *\n* Technical Advisory Center. Any use or disclosure, in whole or\
-          \ in part, *\n* of the IOSv Software or Documentation to any third party\
-          \ for any       *\n* purposes is expressly prohibited except as otherwise\
-          \ authorized by     *\n* Cisco in writing.                             \
-          \                         *\n**************************************************************************^C\n\
-          !\nline con 0\n exec-timeout 0 0\nline aux 0\nline vty 0 4\n exec-timeout\
-          \ 0 0\n login\n transport input none\n!\nno scheduler allocate\n!\nend"
+        content: |-
+          Building configuration...
+
+
+          Current configuration : 4539 bytes
+          !
+          ! Last configuration change at 02:30:58 UTC Sat Jan 3 2026
+          !
+          version 15.9
+          service timestamps debug datetime msec
+          service timestamps log datetime msec
+          no service password-encryption
+          !
+          hostname BR4_R1
+          !
+          boot-start-marker
+          boot-end-marker
+          !
+          !
+          vrf definition DATA
+           rd 10:10
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          vrf definition INET_A
+           rd 11:11
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          vrf definition INET_B
+           rd 12:12
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          vrf definition MGMT
+           rd 20:20
+           !
+           address-family ipv4
+           exit-address-family
+           !
+           address-family ipv6
+           exit-address-family
+          !
+          no logging console
+          !
+          no aaa new-model
+          !
+          !
+          !
+          mmi polling-interval 60
+          no mmi auto-configure
+          no mmi pvc
+          mmi snmp-timeout 180
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          ip domain name marmur.lcl
+          ip cef
+          ipv6 unicast-routing
+          ipv6 cef
+          !
+          multilink bundle-name authenticated
+          !
+          !
+          !
+          crypto pki trustpoint VPN_TP
+           enrollment url http://192.0.2.1:80
+           serial-number none
+           ip-address none
+           vrf INET_A
+           revocation-check none
+           rsakeypair VPN_KEY
+           auto-enroll 80
+          !
+          !
+          crypto pki certificate chain VPN_TP
+          !
+          redundancy
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          !
+          interface Loopback10
+           vrf forwarding DATA
+           ip address 1.4.10.1 255.255.255.255
+           ipv6 address ::1:4:10:1/128
+          !
+          interface Loopback20
+           vrf forwarding MGMT
+           ip address 1.4.20.1 255.255.255.255
+           ipv6 address ::1:4:20:1/128
+          !
+          interface GigabitEthernet0/0
+           description to branch wan cloud
+           no ip address
+           duplex auto
+           speed auto
+          !
+          interface GigabitEthernet0/0.11
+           description connection to isp a
+           encapsulation dot1Q 11
+           vrf forwarding INET_A
+           ip address 203.0.113.41 255.255.255.128
+           ip nat outside
+           ip virtual-reassembly in
+           ipv6 address 2001:DB8:203:A::41/64
+          !
+          interface GigabitEthernet0/0.12
+           encapsulation dot1Q 12
+           vrf forwarding INET_B
+           ip address 203.0.113.241 255.255.255.128
+           ipv6 address 2001:DB8:203:B::241/64
+          !
+          interface GigabitEthernet0/1
+           no ip address
+           shutdown
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/2
+           no ip address
+           shutdown
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          interface GigabitEthernet0/3
+           no ip address
+           shutdown
+           duplex auto
+           speed auto
+           media-type rj45
+          !
+          ip forward-protocol nd
+          !
+          !
+          no ip http server
+          no ip http secure-server
+          ip route vrf INET_A 0.0.0.0 0.0.0.0 203.0.113.1
+          ip route vrf INET_B 0.0.0.0 0.0.0.0 203.0.113.129
+          !
+          ipv6 route vrf INET_B ::/0 2001:DB8:203:B::129
+          ipv6 route vrf INET_A ::/0 2001:DB8:203:A::1
+          ipv6 ioam timestamp
+          !
+          !
+          !
+          control-plane
+          !
+          banner exec ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner incoming ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          banner login ^C
+          **************************************************************************
+          * IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+          * education. IOSv is provided as-is and is not supported by Cisco's      *
+          * Technical Advisory Center. Any use or disclosure, in whole or in part, *
+          * of the IOSv Software or Documentation to any third party for any       *
+          * purposes is expressly prohibited except as otherwise authorized by     *
+          * Cisco in writing.                                                      *
+          **************************************************************************^C
+          !
+          line con 0
+           exec-timeout 0 0
+          line aux 0
+          line vty 0 4
+           exec-timeout 0 0
+           login
+           transport input none
+          !
+          no scheduler allocate
+          !
+          end
     cpu_limit: null
     cpus: null
     data_volume: null
@@ -1753,7 +1881,8 @@ nodes:
   - boot_disk_size: null
     configuration:
       - name: day0-config
-        content: |-
+        content: |2-
+
           : Saved
 
           :
@@ -1808,20 +1937,7 @@ nodes:
           arp timeout 14400
           no arp permit-nonconnected
           arp rate-limit 8192
-          router bgp 65300
-           bgp log-neighbor-changes
-           address-family ipv4 unicast
-            neighbor 203.0.113.1 remote-as 1
-            neighbor 203.0.113.1 activate
-            no auto-summary
-            no synchronization
-           exit-address-family
-           address-family ipv6 unicast
-            neighbor 2001:db8:203:a::1 remote-as 1
-            neighbor 2001:db8:203:a::1 activate
-            no synchronization
-           exit-address-family
-          !
+          ipv6 route outside ::/0 2001:db8:203:a::1
           route outside 0.0.0.0 0.0.0.0 203.0.113.1 1
           timeout xlate 3:00:00
           timeout pat-xlate 0:00:30
@@ -1846,7 +1962,7 @@ nodes:
            crl configure
           crypto ca trustpoint VPN_TP
            enrollment protocol scep url http://192.0.2.1:80
-           serial-number
+           subject-name CN=BR3-ASA.marmur.lcl
            keypair VPN_KEY
            crl configure
           crypto ca trustpool policy
@@ -1975,34 +2091,34 @@ nodes:
               1b4f9a70 45047459 8bd70744 77720d42 b07011b1 ba5b8d8e bff99e18 69af3fb2
               ac66d710 6291d4ed 767a7a90 6feb2b8c cedc9838 ab536465 365d49fa a7c5
             quit
-           certificate 06
-              30820340 30820228 a0030201 02020106 300d0609 2a864886 f70d0101 04050030
+           certificate 0b
+              30820347 3082022f a0030201 0202010b 300d0609 2a864886 f70d0101 04050030
               1e311c30 1a060355 04030c13 48515f48 75622d31 2e6d6172 6d75722e 6c636c30
-              1e170d32 36303130 33303035 3131375a 170d3237 30313033 30303531 31375a30
-              39312130 1f06092a 864886f7 0d010902 0c124252 332d4153 412e6d61 726d7572
-              2e6c636c 31143012 06035504 05130b39 414e3055 4e584c50 54553082 0122300d
-              06092a86 4886f70d 01010105 00038201 0f003082 010a0282 010100c1 e833d97b
-              f6eb4977 73728a5c 3c0e521b 11ce946a f1fc2267 323fb04d 69ab2305 00e6cb92
-              249f2587 6de9bbce 0fe0b238 30185b10 2d61aec3 c6e33e57 dd7f0e0f b084a350
-              0ba9b84f 12487a20 8ad8b2b6 b9adff90 d1d70536 2cc72b29 d782fc79 16d6fb83
-              cab7f6e4 dd95f1ff b9cce78b a9da0937 eb030dc4 80ee9de7 e4836d78 45609b0e
-              48a553e4 90725ba2 ffef2fdf 909bb1f6 e883003f eb8f9373 b90fa761 6a9a5776
-              db0b7502 64363c0e 3b5a256d c649e027 fdd2a737 d1f456a2 99ca997f 8216737d
-              3c4db077 74c83bd9 e50b7879 479fe9d3 8b366c0d 6064f17e ae1d97ea 0f970802
-              e0b79261 712b9cbc e781aac6 52479f60 70dd45a5 a4c793c3 38a26702 03010001
-              a36e306c 301d0603 551d1104 16301482 12425233 2d415341 2e6d6172 6d75722e
-              6c636c30 0b060355 1d0f0404 030205a0 301f0603 551d2304 18301680 143147b2
-              14facafd dcb274e4 db507f1f 54077943 a7301d06 03551d0e 04160414 e129bb36
-              5aa49e73 ec0e7c63 0b8bd091 8126d4fe 300d0609 2a864886 f70d0101 04050003
-              82010100 85581584 b4b8dabd 07f312aa ac2120b7 67f63ddd b67decc5 0c5e7a21
-              19fb1d0b 92cdaa83 37f7c366 98f948e7 0d2bda09 5b48e215 61174ad8 dce09cc5
-              99fe52ff 4565947d 34b731c4 09d493c3 35d83302 6a7d3fcb 4b6eab4a 0749228c
-              7a71c738 771d99b7 51f9e7e9 73f997ed e1c22e9f c4dff850 3ff1583f 02529f72
-              e33c7674 db069cd7 c8faeff8 f0981020 50e4b730 5afe4677 b5d5d7a7 7f2def4d
-              6324ae1a df09d76b 3bd7107e 6f6941a9 e43345ba 136f084f e5af1c0a 655245f8
-              27815cda e0fac45d 51ea4332 d4f014df fa7a479d d2bf3035 e75c32f1 44291819
-              574aae9b d9e8ab81 19902bef af75b75d 9782106f 18cf0dad 80bf2d80 4209b638
-              d56d0b99
+              1e170d32 36303130 33303232 3633325a 170d3237 30313033 30323236 33325a30
+              40311b30 19060355 04030c12 4252332d 4153412e 6d61726d 75722e6c 636c3121
+              301f0609 2a864886 f70d0109 020c1242 52332d41 53412e6d 61726d75 722e6c63
+              6c308201 22300d06 092a8648 86f70d01 01010500 0382010f 00308201 0a028201
+              0100c1e8 33d97bf6 eb497773 728a5c3c 0e521b11 ce946af1 fc226732 3fb04d69
+              ab230500 e6cb9224 9f25876d e9bbce0f e0b23830 185b102d 61aec3c6 e33e57dd
+              7f0e0fb0 84a3500b a9b84f12 487a208a d8b2b6b9 adff90d1 d705362c c72b29d7
+              82fc7916 d6fb83ca b7f6e4dd 95f1ffb9 cce78ba9 da0937eb 030dc480 ee9de7e4
+              836d7845 609b0e48 a553e490 725ba2ff ef2fdf90 9bb1f6e8 83003feb 8f9373b9
+              0fa7616a 9a5776db 0b750264 363c0e3b 5a256dc6 49e027fd d2a737d1 f456a299
+              ca997f82 16737d3c 4db07774 c83bd9e5 0b787947 9fe9d38b 366c0d60 64f17eae
+              1d97ea0f 970802e0 b7926171 2b9cbce7 81aac652 479f6070 dd45a5a4 c793c338
+              a2670203 010001a3 6e306c30 1d060355 1d110416 30148212 4252332d 4153412e
+              6d61726d 75722e6c 636c300b 0603551d 0f040403 0205a030 1f060355 1d230418
+              30168014 3147b214 facafddc b274e4db 507f1f54 077943a7 301d0603 551d0e04
+              160414e1 29bb365a a49e73ec 0e7c630b 8bd09181 26d4fe30 0d06092a 864886f7
+              0d010104 05000382 0101006f cf2f2c44 a3d4a33a 33c33a26 9315e259 da1492ba
+              08ac0ef0 91e6b0c1 09753f91 8b4f89e7 c275a742 ef1fbbb9 0af589bd e3456fad
+              7a55b989 f2dd8ff0 1e6c2434 a0604170 d9620b5b b7ca1dc6 576f270d db98c51e
+              4488d074 17a85342 d7e9bad9 fed6c465 6f080987 81edac11 9ab03044 b48cdb0f
+              46af524f 0f8398eb 9114ceb8 66489fcd 8e8c0670 62265c16 e629ae07 745bcff3
+              ef38dfb8 c1307ecc 41141a64 1196d9d1 8f5b3d3e 0848211f 4092e699 522a1d8c
+              688a4b17 a3bf2b59 2416c6db 069266dc ec87b4e5 81709a3c 7fd48962 50d15488
+              dee4ba52 c93d471b 746346cc a74d1a5c 4d76ec4a de8515fd c647e136 d4454e22
+              0a46bbd3 0e6cdbeb cef176
             quit
           telnet timeout 10
           ssh stricthostkeycheck
@@ -2068,7 +2184,7 @@ nodes:
             subscribe-to-alert-group inventory periodic monthly
             subscribe-to-alert-group configuration periodic monthly
             subscribe-to-alert-group telemetry periodic daily
-          Cryptochecksum:1e91ee16497d11851a2b226b59ff3571
+          Cryptochecksum:0e379b6c67598f00338674d59dd92d00
           : end
     cpu_limit: null
     cpus: null
@@ -2703,6 +2819,13 @@ links:
     i2: i1
     conditioning: {}
     label: BR_WAN-GigabitEthernet1/3<->BR4_R1-GigabitEthernet0/0
+  - id: l16
+    n1: n0
+    n2: n1
+    i1: i1
+    i2: i1
+    conditioning: {}
+    label: ISP A-GigabitEthernet0/0<->ISP B-GigabitEthernet0/0
 lab:
   description: ''
   notes: ''
