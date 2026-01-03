@@ -1,0 +1,208 @@
+Building configuration...
+
+  
+Current configuration : 7099 bytes
+!
+! Last configuration change at 00:59:20 UTC Sat Jan 3 2026
+!
+version 15.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname BR2_R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name marmur.lcl
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+crypto pki trustpoint VPN_TP
+ enrollment url http://192.0.2.1:80
+ serial-number none
+ ip-address none
+ subject-name CN=BR2_R1.marmur.lcl
+ revocation-check none
+ rsakeypair VPN_KEY
+!
+!
+crypto pki certificate chain VPN_TP
+ certificate 05
+  30820326 3082020E A0030201 02020105 300D0609 2A864886 F70D0101 05050030 
+  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30 
+  1E170D32 36303130 33303034 3134345A 170D3237 30313033 30303431 34345A30 
+  3E311A30 18060355 04030C11 4252325F 52312E6D 61726D75 722E6C63 6C312030 
+  1E06092A 864886F7 0D010902 16114252 325F5231 2E6D6172 6D75722E 6C636C30 
+  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100 
+  91681CF8 425A0392 A7FA6B34 EC55B9CA 2EE54648 7A078536 88A4CCE2 7A6A8760 
+  0481A0CB E27BEF74 F72A739C 396E3B08 E186E534 2735C27E 9D4FFC2D 836CD020 
+  5B3295C7 1032C538 A09560E8 E6A048F2 C33FD5FA F36E740B E93D856B 31D69AF3 
+  2A0145C1 476BC3AB E1B7D8CE 31C5555A C2318C71 C298C293 6E93A4E7 32A44264 
+  C70C24C3 87E6E308 94AFDF13 A6F9ED6B 9C1ECCCD 1397748A D1216A9C 5FF2DD8C 
+  2AD873A6 57AE892B CE255CCD 1B07EBA7 CD0BD995 6E3FD29C 30E9B733 6A8B3AC6 
+  8A23DC73 6B895B99 0FA06C9D 737DF833 9B364CDC 3608A4FA CE3E6A4D 1DEDC26E 
+  B44D87E3 C46563F8 62F341A3 8E2CC447 5CFB8DF8 A7CE56A4 1E819B09 3376B181 
+  02030100 01A34F30 4D300B06 03551D0F 04040302 05A0301F 0603551D 23041830 
+  16801431 47B214FA CAFDDCB2 74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 
+  0414D6CC A1FDE552 177FC7C9 5E3E65CF 2905D612 BCD0300D 06092A86 4886F70D 
+  01010505 00038201 0100AA65 5EF472E8 5AFA3197 DAE620C6 D2531A07 7EA42004 
+  D40B78EF AEA4A191 6D60995C 6B5B7932 3403ED0F AB549144 EBE6211E D6EE968C 
+  5FEBB8EA 01257AB0 CD57CF00 CA204737 899A0943 5834B3C6 647C3C59 1BC3D9B2 
+  DD143D40 4F517921 697B477F 2E5CE527 FDCDB98A 71D9EE87 8B863464 26CF8C29 
+  02DC6A8C D5B1093F 61602497 45246BBF B5881D0A E6051F84 E0EADCD5 F0743820 
+  6F760BF4 BF3DBA96 02306DFF 252B0F32 1DEA8841 B673A29A E13FD46B 2A675323 
+  0A71B57C B9D3A170 A564F346 2A2BD3F2 AD864FC6 240BEAE8 8A842749 380EEBE2 
+  4D5DE18C B595EF97 D4AD66E2 C39BD4AA 85554720 013CD53A D9EEF2D2 1B6F77DD 
+  B65D5BFF C222A207 2A75
+  	quit
+ certificate ca 01
+  3082031A 30820202 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30 
+  1E170D32 36303130 33303032 3631395A 170D3239 30313032 30303236 31395A30 
+  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30 
+  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100 
+  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A BAA82A56 
+  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A 81B39614 
+  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531 28ED279D 
+  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C AD2AA290 
+  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C 061DEE68 
+  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5 0722FB1F 
+  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9 D332D0E9 
+  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B FE6C1795 
+  02030100 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E 0603551D 
+  0F0101FF 04040302 0186301F 0603551D 23041830 16801431 47B214FA CAFDDCB2 
+  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA FDDCB274 
+  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201 01004779 
+  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2 56DA71C8 
+  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6 140B312B 
+  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1 2A9BF4CD 
+  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730 EDBD9C83 
+  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA FC87B8E0 
+  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4 2407D011 
+  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18 69AF3FB2 
+  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA A7C5
+  	quit
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.2.10 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 192.168.2.1
+!
+ipv6 ioam timestamp
+!
+!
+!
+control-plane
+!
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+!
+line con 0
+ exec-timeout 0 0
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end

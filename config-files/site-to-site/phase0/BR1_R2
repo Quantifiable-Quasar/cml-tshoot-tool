@@ -1,0 +1,287 @@
+Building configuration...
+
+  
+Current configuration : 8492 bytes
+!
+! Last configuration change at 00:57:31 UTC Sat Jan 3 2026
+!
+version 15.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname BR1_R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition DATA
+ rd 10:10
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition INET_A
+ rd 11:11
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition INET_B
+ rd 12:12
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+vrf definition MGMT
+ rd 20:20
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+no logging console
+!
+no aaa new-model
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip domain name marmur.lcl
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+crypto pki trustpoint VPN_TP
+ enrollment url http://192.0.2.5:80
+ serial-number none
+ ip-address none
+ subject-name CN=BR1_R2.marmur.lcl
+ vrf INET_B
+ revocation-check none
+ rsakeypair VPN_TP
+!
+!
+crypto pki certificate chain VPN_TP
+ certificate 04
+  308202A2 3082018A A0030201 02020104 300D0609 2A864886 F70D0101 05050030 
+  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30 
+  1E170D32 36303130 33303033 3932395A 170D3237 30313033 30303339 32395A30 
+  3E311A30 18060355 04030C11 4252315F 52322E6D 61726D75 722E6C63 6C312030 
+  1E06092A 864886F7 0D010902 16114252 315F5232 2E6D6172 6D75722E 6C636C30 
+  819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100 9ECC9E74 
+  9097D3C2 B6613FD2 474DB041 13D6B472 ED31724B C2C84835 CD647363 F2638CA0 
+  2BCF7A49 121B88FC 23550097 4EAB241E C95FA0C8 21CF1040 82348BD1 737BA470 
+  B0B174E0 A228E834 C30EC6B4 24C6317A 9A6D56A8 4CDA94B4 53AC9910 DA5E130C 
+  DB2033C6 942AAFF7 631AB411 350050F6 00701E27 34A5F800 2A30C341 02030100 
+  01A34F30 4D300B06 03551D0F 04040302 05A0301F 0603551D 23041830 16801431 
+  47B214FA CAFDDCB2 74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 041460F1 
+  E1C68936 E899D229 A5584539 763A1F11 06A0300D 06092A86 4886F70D 01010505 
+  00038201 0100C08A 0295B54D EFE72FA1 42751950 A219D8BE 95B3B37F 1CBF2429 
+  D4529110 97E2A2EE 4479382D 2643F0A2 9292FA23 ED4FDDC8 50BDB3A5 3F63D78D 
+  F20A2C90 DB4A5909 F0D4D6E4 1CF29A7F E0A2515B 7D45AF7E F0EE4164 F63BFE1E 
+  8032A8C5 2247A472 537FCFE3 4AFC6EC6 DF53A01B 6BF23083 CE780FD6 656885D1 
+  61554935 368984F7 70EDD83F C86D40DE F62A2C52 60662527 405D64B0 A31730DA 
+  1F17497F 941D51FB AC93B64D CF4CE0EB 4C2EB1E4 D681E0C0 F896D079 457D2623 
+  66C8D1E8 6F52924A C3EB7AC8 60E054C9 B0AC5BAA 1E486142 76AD4313 F28DF5E2 
+  0E38890A 79247435 8347CC43 B831FDDA 0BE1EA76 FB3F98F8 8D2129D2 66120503 
+  D051E11C 5D9B
+  	quit
+ certificate ca 01
+  3082031A 30820202 A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30 
+  1E170D32 36303130 33303032 3631395A 170D3239 30313032 30303236 31395A30 
+  1E311C30 1A060355 04030C13 48515F48 75622D31 2E6D6172 6D75722E 6C636C30 
+  82012230 0D06092A 864886F7 0D010101 05000382 010F0030 82010A02 82010100 
+  D70D1631 8ECAF233 A3FDB65E 298D853E 43E7B7FA 525F8D36 C58DA42A BAA82A56 
+  056FF21B 13281249 EBAD93B2 DD04E654 C5E41BF2 313E892E FA31A20A 81B39614 
+  647DDC55 3A3BB091 E418E26F 97ED87EE 733359EA 0A15D2CB DDA67531 28ED279D 
+  620DBC5D 50AC48A0 C2F67F50 4E110241 A3B63CD2 7BEC671F 8E57FE6C AD2AA290 
+  8C38D6AC AFC20A70 1A0229EA EAD6A398 80AC9871 D943E980 341AEA7C 061DEE68 
+  3A148587 76577ADD 065062A6 7EB94135 BD74BF8C 7AC0F334 5B3EC7E5 0722FB1F 
+  2E11CB46 63EF280C 382F43E4 2847EA19 946E94FA 7748BD7B C07F8CE9 D332D0E9 
+  49E1D7FD 7E025BB2 B6C86EC6 53425CAC 4101C65E C663814F 28F9F17B FE6C1795 
+  02030100 01A36330 61300F06 03551D13 0101FF04 05300301 01FF300E 0603551D 
+  0F0101FF 04040302 0186301F 0603551D 23041830 16801431 47B214FA CAFDDCB2 
+  74E4DB50 7F1F5407 7943A730 1D060355 1D0E0416 04143147 B214FACA FDDCB274 
+  E4DB507F 1F540779 43A7300D 06092A86 4886F70D 01010405 00038201 01004779 
+  94C937D3 327573F4 0A6EC86E CF1B8AE9 7F4159AD 6774767A 736E1DE2 56DA71C8 
+  5D3BD17E 73B67B67 2C57E4E3 5776F30B A27CE5FB E788E258 0CAB48A6 140B312B 
+  CF2B3413 76356DBC 7BA4173F 9D4DACF9 DE601AE2 EE892671 87EF20B1 2A9BF4CD 
+  EB1F5DD0 65BFD7FB C5B0AD6F C64B93F7 6A60B731 63A72F8B 74959730 EDBD9C83 
+  3A4100CF 1C102170 A93236DE 0947FB3A C372E88D 6E82A2F2 9456DAEA FC87B8E0 
+  0CE20246 B6DC3983 4101E70E B8B21506 46D87352 052F48E7 90B12BA4 2407D011 
+  1B4F9A70 45047459 8BD70744 77720D42 B07011B1 BA5B8D8E BFF99E18 69AF3FB2 
+  AC66D710 6291D4ED 767A7A90 6FEB2B8C CEDC9838 AB536465 365D49FA A7C5
+  	quit
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback10
+ vrf forwarding DATA
+ ip address 1.1.10.2 255.255.255.255
+ ipv6 address ::1:1:10:2/128
+!
+interface Loopback20
+ vrf forwarding MGMT
+ ip address 1.1.20.1 255.255.255.255
+ ipv6 address ::1:1:20:2/128
+!
+interface GigabitEthernet0/0
+ description To ISP B
+ vrf forwarding INET_B
+ ip address 203.0.113.211 255.255.255.128
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address 2001:DB8:203:B::211/64
+!
+interface GigabitEthernet0/1
+ description LAN
+ vrf forwarding DATA
+ ip address 192.168.1.2 255.255.255.0
+ ip nat inside
+ ip virtual-reassembly in
+ standby version 2
+ standby 1 priority 95
+ standby 1 preempt
+ standby 10 ip 192.168.1.254
+ standby 10 priority 90
+ standby 10 preempt
+ standby 11 ipv6 2001:DB8:1921:1681::254/64
+ standby 11 priority 90
+ standby 11 preempt
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address 2001:DB8:1921:1681::2/64
+!
+interface GigabitEthernet0/2
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router bgp 65100
+ bgp router-id 1.1.0.2
+ bgp log-neighbor-changes
+ !
+ address-family ipv4 vrf INET_B
+  network 203.0.113.128 mask 255.255.255.128
+  neighbor 203.0.113.129 remote-as 2
+  neighbor 203.0.113.129 activate
+ exit-address-family
+ !
+ address-family ipv6 vrf INET_B
+  network 2001:DB8:203:B::/64
+  neighbor 2001:DB8:203:B::129 remote-as 2
+  neighbor 2001:DB8:203:B::129 activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip nat inside source list 1 interface GigabitEthernet0/0 overload
+!
+ipv6 ioam timestamp
+!
+!
+access-list 1 permit 192.168.1.0 0.0.0.255
+!
+control-plane
+!
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+!
+line con 0
+ exec-timeout 0 0
+line aux 0
+line vty 0 4
+ exec-timeout 0 0
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end
